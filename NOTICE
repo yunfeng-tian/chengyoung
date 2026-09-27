@@ -1,0 +1,47 @@
+ChengYoung
+Copyright 2026 ChengYoung Project Authors
+
+This product is a branded build of the open source Goose project. It is an
+independent distribution: it is not an official Goose release, and it is not
+affiliated with, endorsed by, or sponsored by the Goose project or its
+maintainers.
+
+Upstream project
+----------------
+  Project:            Goose
+  Source:             https://github.com/aaif-goose/goose
+  License:            Apache License, Version 2.0
+  Maintainer notice:  Goose is developed by the Agentic AI Foundation (AAIF),
+                      a project of the Linux Foundation, and is distributed
+                      under the Apache License, Version 2.0.
+
+The full text of the Apache License, Version 2.0 is distributed with this
+product in the LICENSE file located next to this NOTICE. That license, together
+with the attribution notices above, is retained as required by Section 4 of the
+Apache License, Version 2.0. No NOTICE file is published by the upstream
+project, so the attribution notices in this file are the ones provided by this
+distribution.
+
+Third-party components
+----------------------
+This product bundles or depends on third-party software, including:
+
+  * Electron and Chromium - MIT and BSD-style licenses, as published with the
+    Electron project.
+  * Node.js - MIT license.
+  * Front-end libraries bundled with the Model Context Protocol extension
+    (chart.js, d3, d3-sankey, Leaflet, Leaflet.markercluster, Mermaid) - see
+    crates/goose-mcp/licenses/*.license in the upstream source tree.
+
+Optional model packages are distributed separately. They are governed by the
+licenses published by their respective authors, and they ship their own license
+and attribution files.
+
+Trademarks
+----------
+"Goose" and "Block" are trademarks of their respective owners. Those names
+appear in this product only where required for attribution, license compliance,
+or interoperability with technical identifiers that must stay identical to the
+upstream implementation (for example the goose:// URL scheme, the .goose/
+configuration directory, and GOOSE_* environment variables). ChengYoung is an
+independent project and claims no rights in those trademarks.
