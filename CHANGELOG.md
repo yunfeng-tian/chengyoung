@@ -2,6 +2,17 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
+
+### 新增
+- **关闭最小化到托盘**：关闭窗口不再退出，托盘菜单支持打开 / 设置 / 检查更新 / 退出
+- **会话「复制并分享」**：右键一键复制整个会话的 Markdown 文本
+- 主窗口隐藏预热：界面就绪后再显示，消除启动白闪
+
+### 改进与修复
+- 启动首帧闪烁（白闪 / 灰闪）与主题切换时的标题栏残留修复
+- 主窗口顶部边界与标题栏细节修复
+
 ## [1.7.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.7.0) — 2026-10-01
 
 ### 新增
@@ -69,6 +80,17 @@
 ## English
 
 Release history for users, newest first. Categories: New / Improvements & fixes / Security. Breaking changes (if any) are flagged at the top of the affected version.
+
+## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
+
+### New
+- **Minimize to tray on close**: closing the window keeps the app in the tray, with a tray menu (open / settings / check for updates / exit)
+- **Copy & share session**: copy a whole session as Markdown with one click from the context menu
+- Hidden-until-ready main window: shown once the UI is ready, eliminating the startup flash
+
+### Improvements & fixes
+- Fixed first-frame flicker (white / gray flash) and title-bar leftovers on theme switch
+- Main window top boundary and title-bar polish
 
 ## [1.7.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.7.0) — 2026-10-01
 
