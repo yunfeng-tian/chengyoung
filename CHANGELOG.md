@@ -2,6 +2,21 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.9.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.9.0) — 2026-10-03
+
+### 新增
+- **右栏「工作文件」重设计**：会话产生的文件变更置顶展示，目录浏览增强；视图标签改为图标 + 悬停提示
+- **Diff 支持非 UTF-8 文件**：GBK 等编码的文件在工作区 diff 中不再报「加载 Diff 失败」
+- **文件编辑编码保真**：Agent 编辑文件时自动检测并保持原编码回写，不再把非 UTF-8 文件写成乱码
+- Hub 启动页优化：问候与引导合并为一句、起手指令卡片按日轮换（两天换一批）、目录切换集中在输入框
+- 附属页面头部排版收紧
+
+### 改进与修复
+- 内核同步上游 1.53.0：提示词分类器 fail-safe、会话 HTML 导出、模型目录等上游改进
+
+### 安全
+- MCP streamable HTTP 传输的 SSRF 防护修复（上游 #11501）
+
 ## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
 
 ### 新增
@@ -80,6 +95,21 @@
 ## English
 
 Release history for users, newest first. Categories: New / Improvements & fixes / Security. Breaking changes (if any) are flagged at the top of the affected version.
+
+## [1.9.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.9.0) — 2026-10-03
+
+### New
+- **Redesigned "Workspace files" panel**: file changes produced by sessions are pinned at the top, with enhanced directory browsing; panel view tabs are now icons with tooltips
+- **Diff view for non-UTF-8 files**: files in encodings such as GBK no longer fail with "Failed to load diff" in the workspace diff
+- **Encoding-preserving file edits**: the Agent detects and preserves the original file encoding when editing, instead of rewriting non-UTF-8 files into mojibake
+- Hub home page polish: merged greeting line, starter cards rotating by day (a new pair every two days), working-directory switching inside the input box
+- Tighter headers on secondary pages
+
+### Improvements & fixes
+- Core synced to upstream 1.53.0: prompt-classifier fail-safe, session HTML export, model catalog and other upstream improvements
+
+### Security
+- SSRF protection fix in the MCP streamable-HTTP transport (upstream #11501)
 
 ## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
 
