@@ -2,6 +2,16 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.11.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.1) — 2026-10-05
+
+### 修复
+- **错误页的「重试」现在真正可用**：此前本地推理引擎被停止或意外退出后，错误页的重试只会反复检查一个已不存在的服务、永远失败；现在重试会让应用自动重启引擎并重新连接（约 3-5 秒）。重启本身失败时提供「打开日志目录」，便于附在反馈里排查
+- 系统信息的 OS 一行现在带平台名（`Windows 10.0.26300`），不再只有裸版本号
+
+### Fixed
+- **The "Retry" button on the error page now actually works**: after the local inference engine was stopped or crashed, retrying only re-checked a dead endpoint and always failed; retrying now restarts the engine automatically and reconnects (about 3-5 seconds). If the restart itself fails, an "Open logs folder" action is offered for troubleshooting feedback
+- The OS line in system info now includes the platform name (`Windows 10.0.26300`) instead of a bare version number
+
 ## [1.11.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.0) — 2026-10-05
 
 ### 新增
@@ -119,6 +129,12 @@
 ## English
 
 Release history for users, newest first. Categories: New / Improvements & fixes / Security. Breaking changes (if any) are flagged at the top of the affected version.
+
+## [1.11.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.1) — 2026-10-05
+
+### Fixed
+- **The "Retry" button on the error page now actually works**: after the local inference engine was stopped or crashed, retrying only re-checked a dead endpoint and always failed; retrying now restarts the engine automatically and reconnects (about 3-5 seconds). If the restart itself fails, an "Open logs folder" action is offered for troubleshooting feedback
+- The OS line in system info now includes the platform name (`Windows 10.0.26300`) instead of a bare version number
 
 ## [1.11.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.0) — 2026-10-05
 
