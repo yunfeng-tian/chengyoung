@@ -2,6 +2,21 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.10.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.10.0) — 2026-10-04
+
+> 本条目同时涵盖中间的内部修订版本（其内容已全部包含在本版安装包中）。
+
+### 新增
+- **通知中心**：底部状态栏新增铃铛入口——通知即时弹出并自动留存，支持未读计数、单条清除与「全部清除」；留存仅保存在内存中，不写入任何文件
+- **扩展页新增「会话级扩展」状态卡**：浏览器控制的接入状态（已接入 / 失败原因）与管理入口一目了然，与启动提示的统计口径一致
+
+### 改进与修复
+- **提示气泡全面重设计**：视觉融入亮 / 暗主题、宽度随内容自适应、整体位置下移，不再遮挡页面右上角的按钮
+- **恢复历史会话时浏览器工具自动恢复可用**：此前恢复旧会话会出现「9/10 个扩展加载失败」且浏览器工具不可用，现在恢复时会自动续接最新端点
+- **云端模型上下文窗口标注修正**：DeepSeek（1M 上下文）等 37 处内置标注按 2026-10 信息核对更新，上下文占用条与压缩提示与模型实际能力一致
+- 内部推理进程改用专用名称，避免与官方 Goose 同装时产生进程混淆
+- 发布流程加固：内置 16 语言文案质量门禁（防止个别语言回退英文）与版本 tag 幂等
+
 ## [1.9.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.9.0) — 2026-10-03
 
 ### 新增
@@ -20,7 +35,7 @@
 ## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
 
 ### 新增
-- **关闭最小化到托盘**：关闭窗口不再退出，托盘菜单支持打开 / 设置 / 检查更新 / 退出
+- **关闭时最小化到托盘**：关闭窗口不再退出，托盘菜单支持打开 / 设置 / 检查更新 / 退出
 - **会话「复制并分享」**：右键一键复制整个会话的 Markdown 文本
 - 主窗口隐藏预热：界面就绪后再显示，消除启动白闪
 
@@ -32,7 +47,7 @@
 
 ### 新增
 - **内嵌浏览器面板化**：第三方网页在主窗口内的隔离面板中打开，随主窗口联动收缩；独立配置目录 / 零注入 / 无法获取任何应用权限
-- **Agent 浏览器控制增强**：支持输入并提交表单（默认全关、逐域名授权、每次操作确认、敏感字段页面端拦截、输入内容绝不写入任何日志）
+- **Agent 浏览器控制增强**：支持输入并提交表单（默认关闭、按站点授权、每次操作确认、敏感字段页面端拦截、输入内容绝不写入任何日志）
 - 顶栏新增「切换辅助栏」按钮
 - **页面可见输入框枚举**：Agent 可列出页面上真实可见的输入框（只给选择器，不含已填内容），提升表单交互准确性
 
@@ -43,7 +58,7 @@
 ## [1.4.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-27 – 2026-09-29
 
 ### 新增
-- **Agent 浏览器控制**：读取页面文本 / 点击元素 / 后退前进刷新（**默认全关**、逐域名授权）
+- **Agent 浏览器控制**：读取页面文本 / 点击元素 / 后退前进刷新（**默认关闭**、按站点授权）
 - 内嵌浏览器导航即时同步；`goose://extension` 深链安装前格式校验
 
 ### 改进与修复
@@ -95,6 +110,21 @@
 ## English
 
 Release history for users, newest first. Categories: New / Improvements & fixes / Security. Breaking changes (if any) are flagged at the top of the affected version.
+
+## [1.10.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.10.0) — 2026-10-04
+
+> This entry also covers the intermediate internal revisions (all of their changes are included in this release's installer).
+
+### New
+- **Notification center**: a bell entry in the status bar — notifications pop up instantly and are archived for later review, with an unread counter, per-item dismiss and "clear all"; the archive lives in memory only and is never written to any file
+- **"Session-level extensions" card on the Extensions page**: the connection state of browser control (connected / failure reason) and its manage entry at a glance, consistent with the startup toast
+
+### Improvements & fixes
+- **Redesigned toast notifications**: visuals match the light / dark themes, width adapts to content, and the position moved down so page controls in the top-right corner are no longer covered
+- **Browser tools are available again after restoring an old session**: restoring a session used to show "9/10 extensions loaded" with browser tools unavailable; restoring now reconnects to the latest endpoint automatically
+- **Cloud model context-window labels corrected**: 37 built-in labels (DeepSeek 1M context and more) verified against 2026-10 information, so the context bar and compaction hints match the model's real capability
+- The internal inference process now uses a dedicated name, avoiding process confusion when the official Goose is installed alongside
+- Release pipeline hardening: a built-in 16-locale copy-quality gate and version-tag idempotency
 
 ## [1.9.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.9.0) — 2026-10-03
 
