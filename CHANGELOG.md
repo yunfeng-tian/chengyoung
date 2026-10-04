@@ -2,6 +2,15 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.11.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.0) — 2026-10-05
+
+### 新增
+- **系统信息升级为完整构建与环境档案**（设置 → 应用 → 关于与帮助 → 「复制系统信息」）：在版本、平台、语言之外，新增 OS 版本号、WebView2 运行时版本、构建提交与构建日期——信息密度对照 VS Code「帮助 → 关于」，便于支持排障
+- **诊断报告版本自检**：生成诊断包时，应用版本与平台信息统一由应用外壳提供，本地推理引擎的版本单列一行——两者不一致时在报告里一眼可见
+
+### 修复
+- **修正安装包内本地推理引擎的版本号**：1.10.0 安装包中应用版本显示正确，但内部推理引擎二进制停留在 1.9.1（版本号提升未触发其重新编译）。功能本身没有差异，但诊断报告会显示旧版本。发布链路同步加固：发布构建现在会自动重编引擎并校验其内嵌版本号，杜绝同类问题再次发生
+
 ## [1.10.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.10.0) — 2026-10-04
 
 > 本条目同时涵盖中间的内部修订版本（其内容已全部包含在本版安装包中）。
@@ -110,6 +119,15 @@
 ## English
 
 Release history for users, newest first. Categories: New / Improvements & fixes / Security. Breaking changes (if any) are flagged at the top of the affected version.
+
+## [1.11.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.0) — 2026-10-05
+
+### New
+- **System info upgraded to a full build & environment report** (Settings → App → About & help → Copy system info): in addition to version, platform and locale, it now includes the OS version, the WebView2 Runtime version, and the build commit & date — on par with VS Code's Help → About for support troubleshooting
+- **Diagnostics version self-check**: the diagnostic report now takes the app version and platform from the app shell, and lists the local inference engine version on its own line — any mismatch between the two is immediately visible in the report
+
+### Fixed
+- **Corrected the local inference engine version inside the installer**: in 1.10.0 the app version was correct, but the engine binary was still 1.9.1 (bumping the version did not trigger its recompilation). There was no functional difference, but the diagnostic report showed the old version. The release pipeline was hardened accordingly: release builds now rebuild the engine automatically and assert its embedded version, so this class of issue cannot recur
 
 ## [1.10.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.10.0) — 2026-10-04
 
