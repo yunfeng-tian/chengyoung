@@ -2,6 +2,19 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.12.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.12.0) — 2026-10-05
+
+### 新增
+- **引擎生命周期管理**：本地推理引擎意外退出后，应用会自动按退避策略重启（立即 / 2 秒 / 8 秒，最多 3 次）；长期稳定运行（超过 60 秒）后的崩溃不会继承历史失败。多次重启仍失败时才显示错误，并提供诊断与日志入口
+- **托盘新增引擎控制**：托盘菜单显示引擎状态（运行中 / 已停止），并提供「停止引擎」与「启动引擎」入口。停止引擎只释放模型占用的显存——聊天记录保留、应用保持打开（需二次确认）；停止引擎 ≠ 退出应用
+- **错误页按引擎状态区分**：引擎是从托盘主动停止时，错误页显示「启动引擎」而非「重启」；连续两次重启失败后收起重试按钮，只保留「打开日志文件夹」诊断出口
+
+### Added
+- **Engine lifecycle management**: after an unexpected exit of the local inference engine, the app now restarts it automatically with backoff (immediately / 2 s / 8 s, up to 3 attempts); a crash after a long stable run (over 60 s) does not inherit past failures. The error state is shown only after repeated restart attempts fail, with diagnostics and log access
+- **Engine controls in the tray**: the tray menu now shows the engine state (running / stopped) and offers "Stop engine" / "Start engine". Stopping the engine only frees the model's GPU memory — chat history is kept and the app stays open (with a confirmation dialog). Stopping the engine is distinct from quitting the app
+- **Error page distinguishes engine states**: when the engine was stopped from the tray, the page offers "Start engine" instead of "Restart"; after two consecutive failed restarts the retry button is replaced by an "Open logs folder" diagnostics exit
+
+
 ## [1.11.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.1) — 2026-10-05
 
 ### 修复
