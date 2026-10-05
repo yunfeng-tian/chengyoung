@@ -2,6 +2,25 @@
 
 本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
+## [1.13.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.13.0) — 2026-10-05
+
+### 新增
+- **自动检查与下载更新**：应用默认每 4 小时自动检查更新（首次检查在启动 5 分钟后），发现新版本会自动后台下载并在就绪时通知——安装仍需确认；两个开关（自动检查 / 自动下载）均可在设置 → 关于 ChengYoung 中关闭
+- **数据目录品牌化**：数据目录迁移至 `%APPDATA%\ChengYoung\`，与原版 Goose 并装互不影响；首次启动自动把旧数据完整复制到新目录，会话历史与配置原样保留（旧目录保留不动，可自行删除）
+- **README 说明增强**：新增修改声明（Apache-2.0 第 4 节）、零遥测自测方法、minisign 公钥指纹、内存分档建议与常见问题（FAQ）
+
+### 修复
+- **修复托盘「停止引擎」后托盘图标无响应的问题**：确认对话框此前在主线程上同步等待，导致托盘图标的左键与右键全部失去响应；现改为非阻塞弹窗，停止操作在确认后正常执行，无需重启应用
+
+### Added
+- **Automatic update checks and downloads**: the app now checks for updates every 4 hours by default (first check 5 minutes after launch), downloads new versions automatically in the background and notifies you when ready — installation still asks for confirmation. Both switches (automatic check / automatic download) can be turned off in Settings → About ChengYoung
+- **Branded data directory**: the data directory moves to `%APPDATA%\ChengYoung\`, isolated from the original Goose; the first launch copies legacy data in full to the new directory — session history and configuration are preserved as-is (the old directory is left untouched and can be deleted manually)
+- **README improvements**: notice of modifications (Apache-2.0 §4), zero-telemetry self-verification guide, minisign public-key fingerprint, tiered memory recommendations, and a FAQ
+
+### Fixed
+- **Fixed the tray icon becoming unresponsive after "Stop engine"**: the confirmation dialog previously blocked the main thread, freezing all tray interactions; the dialog is now non-blocking and the stop action runs normally after confirmation, with no restart required
+
+
 ## [1.12.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.12.0) — 2026-10-05
 
 ### 新增
