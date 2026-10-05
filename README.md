@@ -34,14 +34,14 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 3. 首次启动后，在「设置 → 模型」里搜索并下载一个本地模型；也可以先配置云端模型提供商再开始使用
 
 - **校验值**：同一 Release 页面的 `SHA256SUMS.txt`
-- **应用内更新**：设置 → 关于 ChengYoung → 检查更新（自动下载并安装；安装包经 minisign 签名校验，签名不匹配将拒绝安装）
+- **应用内更新**：设置 → 关于 ChengYoung → 检查更新（应用默认定期自动检查并下载，**安装前会再次确认**；安装包经 minisign 签名校验，签名不匹配将拒绝安装）
 - ⚠️ **手动双击安装包前，请先完全退出应用（包括托盘图标）**——应用运行时文件被占用，可能提示「无法写入」或要求重启
 
 ## 主要能力
 
 | 能力 | 说明 |
 | --- | --- |
-| 本地模型 | 应用内搜索和下载 Hugging Face 上的 GGUF 模型，支持 GPU（Vulkan）加速；**模型不随安装包分发** |
+| 本地模型 | 应用内搜索和下载 Hugging Face 上的 GGUF 模型，支持 GPU（Vulkan）加速；**模型不随安装包分发**，许可以各模型页为准（Qwen2.5 为 Apache-2.0，Gemma 系列遵循 Google Gemma Terms），下载前请确认是否符合你的使用场景 |
 | 云端模型 | 自备 API Key 接入 Anthropic、OpenAI、Google、OpenRouter、Ollama 等提供商 |
 | 会话 | 支持会话历史、重命名、置顶、导出、归档、一键复制为 Markdown 分享，以及从任意消息派生新会话 |
 | 工作流（Recipe） | 将常用任务沉淀为可复用流程；可通过 `goose://recipe?...` 深链分享，运行前会显示流程内容并进行变更确认 |
@@ -57,18 +57,20 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 ## 隐私与联网
 
 - **不收集、不上传任何使用数据**：不包含遥测、设备指纹或崩溃上报功能。
-- 只有在你主动触发时才会联网：
-  1. 下载本地模型（Hugging Face）
-  2. 检查 / 下载更新（GitHub Releases）
-  3. 你自行配置的模型提供商 API
-- 会话与设置保存在本机 `%APPDATA%\Block\goose\` 目录（保留上游目录名以确保升级兼容性；可用环境变量 `GOOSE_PATH_ROOT` 覆盖）
+- 应用会在以下情况联网：
+  1. 下载本地模型（Hugging Face，用户主动）
+  2. 检查 / 下载更新（GitHub Releases；应用默认**定期自动检查并自动下载**，可在设置 → 关于 ChengYoung 中关闭）
+  3. 调用你自行配置的模型提供商 API（用户主动）
+- **自动检查更新补充**：检查请求只从 GitHub Releases 拉取版本清单，不上传任何本机数据；下载完成后会通知你，**安装前会再次确认**。
+- 会话与设置保存在本机 `%APPDATA%\ChengYoung\` 目录（1.13.0 起首次启动会把旧版位于 `%APPDATA%\Block\goose\` 的数据自动复制到新目录，旧目录保留不动——与原版 Goose 并装互不影响；也可用环境变量 `GOOSE_PATH_ROOT` 自行指定数据根）。
+- **自行验证**：在未执行上述操作时，可以用 Windows「资源监视器」或 Procmon 观察应用的网络活动——不应出现任何出站连接。
 
 ## 环境要求
 
 - Windows 10 / 11（x64）
 - 安装包约 62 MB（已含本地推理引擎）；本地模型按需下载，体积另计
 - Windows 11 已内置 WebView2；Windows 10 首次安装时安装器会联网补装 WebView2 运行时
-- 运行本地模型建议配备 8 GB 及以上内存；使用 GPU 加速需要支持 Vulkan 的显卡驱动。
+- 运行本地模型的内存参考：**最低可启动** 8 GB（仅小参数模型、短上下文）；**日常流畅** 16 GB 内存 / 8 GB 显存（7B 模型，4K–8K 上下文）；**长上下文** 16 GB 以上显存或 32 GB 内存（7B 模型，16K 以上上下文，或更大参数模型）。使用 GPU 加速需要支持 Vulkan 的显卡驱动。
 
 ## 校验下载
 
@@ -77,7 +79,13 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ```
 
-将输出的哈希与同一 Release 的 `SHA256SUMS.txt` 逐字比对。应用内更新的安装包由更新器自动校验 minisign 签名，签名不匹配会被拒绝安装。
+将输出的哈希与同一 Release 的 `SHA256SUMS.txt` 逐字比对。应用内更新的安装包由更新器自动校验 minisign 签名（公钥指纹 `3651-C9C4-6E36`，即内置公钥 SHA-256 的前 12 位，可在 Release 页面核对），签名不匹配会被拒绝安装。
+
+## 常见问题
+
+- **自动检查更新会上传我的数据吗？** 不会。检查请求只从 GitHub Releases 拉取版本清单，不上传任何本机数据；检查和下载均可在设置中关闭。
+- **同时安装原版 Goose 会冲突吗？** 不会。ChengYoung 1.13.0 起使用独立数据目录（`%APPDATA%\ChengYoung\`），首次启动会复制旧数据，原版 Goose 的目录保留不动。
+- **旧会话会丢失吗？** 不会。旧数据会完整复制到新目录，会话历史和配置保持不变。
 
 ## 反馈
 
@@ -88,6 +96,7 @@ certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ## 许可与来源
 
 - 本发行版是基于开源项目 **Goose**（Agentic AI Foundation / Linux Foundation，Apache License 2.0）的**品牌化构建与独立发行版**；它**并非** Goose 官方发行版，与上游项目及其维护者**无隶属、背书或赞助关系**。
+- **修改声明**（Apache-2.0 第 4 节）：本发行版对上游 Goose 做了以下层面的修改：(1) 以 Tauri 2 外壳替代 Electron 桌面运行时；(2) 新增浏览器隔离面板与 Agent 浏览器控制功能；(3) 调整默认配置与安全策略（更新签名校验、数据目录品牌化等）。未修改的部分与上游保持一致。
 - 分发遵循 Apache License 2.0；**LICENSE** 与 **NOTICE** 随安装包分发（安装后位于应用目录的 `resources/` 下，含上游署名与第三方组件声明）。
 - 本仓库发布的是**编译产物，不提供源代码**；文中出现的 “Goose” 等名称仅用于说明来源，相关商标归其权利人所有。
 - 本地模型由应用从 Hugging Face 获取，**不随本发行版分发**；模型的许可以其**模型页**为准（例如 Qwen2.5 为 Apache-2.0，Gemma 系列遵循 Google Gemma Terms）。
@@ -122,20 +131,20 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 3. On first launch, download a local model under *Settings → Models*, or configure a cloud provider before you start
 
 - Checksums: `SHA256SUMS.txt` in the same release
-- In-app updates: *Settings → About ChengYoung → Check for updates* (automatically downloaded and installed; installers are minisign-verified and rejected on signature mismatch)
+- In-app updates: *Settings → About ChengYoung → Check for updates* (the app periodically checks and downloads by default; **installation asks for confirmation**; installers are minisign-verified and rejected on signature mismatch)
 - ⚠️ Fully quit the app (including the tray icon) before running an installer manually — a running app keeps the files locked, and you may see a “cannot write” error or be asked to restart.
 
 ### Key features
 
 | Area | What you get |
 | --- | --- |
-| Local models | Search and download GGUF models from Hugging Face in-app, with GPU (Vulkan) acceleration; **models are not bundled** |
+| Local models | Search and download GGUF models from Hugging Face in-app, with GPU (Vulkan) acceleration; **models are not bundled**, and their licenses are governed by each model page (e.g. Qwen2.5 is Apache-2.0, the Gemma family follows the Google Gemma Terms) — please check before downloading whether a model fits your use case |
 | Cloud models | Bring your own API key for Anthropic, OpenAI, Google, OpenRouter, Ollama and more |
 | Sessions | History, rename, pin, export, archive, one-click **copy as Markdown** for sharing, and branch a new session from any message |
 | Workflows (Recipes) | Turn recurring tasks into reusable flows and share them with `goose://recipe?...` links; the content is shown and changes are confirmed before running |
 | Skills / Apps / Scheduler / Extensions | Built-in capabilities are managed visually in-app; extensions use the MCP protocol (third-party MCP servers supported), and sensitive actions require permission first |
 | **Agent browser control** | Read page text, click elements, and type into or submit forms — **off by default**, per-site authorization + per-action confirmation, sensitive field input is automatically intercepted on the page, and input content is never logged |
-| Workspace panel | Files, media and run results — plus an **embedded browser** (third-party pages open in an **isolated panel** with their own profile and cannot reach the app or your files) |
+| Workspace right panel | Files, media and run results — plus an **embedded browser** (third-party pages open in an **isolated panel** with their own profile and cannot reach the app or your files) |
 | Prompts and hints | Inspect or override the 9 built-in prompt templates, and edit project or global `.goosehints` |
 | **Notification center** | A bell in the status bar archives every notification: unread counter, per-item dismiss and clear all; the archive lives in memory only and is never written to any file |
 | Context & workspace awareness | Persistent context-usage bar with auto-compaction scale in the top bar; a badge for uncommitted workspace changes (read-only, computed locally) |
@@ -145,18 +154,20 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 ### Privacy and network access
 
 - **No usage data is collected or uploaded**: the app does not include telemetry, device fingerprinting, or crash reporting.
-- The app only goes online when you:
-  1. Download local models (Hugging Face)
-  2. Check for or download updates (GitHub Releases)
-  3. Call the APIs of the model providers you configured
-- Sessions and settings live on your machine in the `%APPDATA%\Block\goose\` directory (upstream directory name retained for upgrade compatibility; override it with the `GOOSE_PATH_ROOT` environment variable).
+- The app goes online in the following cases:
+  1. Download local models (Hugging Face; user-initiated)
+  2. Check for or download updates (GitHub Releases; the app **periodically checks and downloads by default**, which can be turned off in Settings → About ChengYoung)
+  3. Call the APIs of the model providers you configured (user-initiated)
+- **About automatic checks**: the check request only fetches the version manifest from GitHub Releases and never uploads anything from your machine; once downloaded you are notified and **installation asks for confirmation**.
+- Sessions and settings live on your machine in `%APPDATA%\ChengYoung\` (from 1.13.0, the first launch copies data from the legacy `%APPDATA%\Block\goose\` directory to the new one; the old directory is left untouched, so coexisting with the original Goose is safe. You can also override the data root with the `GOOSE_PATH_ROOT` environment variable).
+- **Verify it yourself**: when none of the above is happening, watch the app's network activity with Windows Resource Monitor or Process Monitor — no outbound connections should appear.
 
 ### Requirements
 
 - Windows 10 / 11 (x64)
 - The installer is about 62 MB (the local inference engine is included); models are downloaded on demand, with separate download sizes
 - Windows 11 ships with WebView2; on Windows 10 the installer fetches the WebView2 runtime if it is missing
-- 8 GB or more RAM is recommended for running local models; GPU acceleration requires a Vulkan-capable driver.
+- Memory reference for local models: **minimum to start** 8 GB (small models, short context); **comfortable** 16 GB RAM / 8 GB VRAM (7B models, 4K–8K context); **long context** 16 GB+ VRAM or 32 GB RAM (7B models, 16K+ context, or larger models). GPU acceleration requires a Vulkan-capable driver.
 
 ### Verify the download
 
@@ -165,7 +176,13 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 certutil -hashfile ChengYoung_<version>_x64-setup.exe SHA256
 ```
 
-Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app update installers are automatically verified by the updater against the minisign signature and are rejected if it does not match.
+Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app update installers are automatically verified by the updater against the minisign signature (public-key fingerprint `3651-C9C4-6E36`, the first 12 hex characters of the SHA-256 of the built-in public key — check it on the Release page) and are rejected if it does not match.
+
+### FAQ
+
+- **Does the automatic update check upload my data?** No. The check only fetches the version manifest from GitHub Releases and never uploads anything from your machine; both the check and the download can be turned off in Settings.
+- **Will it conflict with the original Goose if both are installed?** No. ChengYoung 1.13.0+ uses its own data directory (`%APPDATA%\ChengYoung\`); the first launch copies legacy data over and the original Goose's directory is left untouched.
+- **Will my old sessions survive the upgrade?** Yes. Legacy data is copied in full to the new directory — session history and configuration are preserved as-is.
 
 ### Feedback
 
@@ -176,6 +193,7 @@ Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app u
 ### Licensing and provenance
 
 - This is a **branded build and independent distribution** of the open-source **Goose** project (Agentic AI Foundation / Linux Foundation, Apache License 2.0). It is **not** an official Goose release and is **not affiliated with, endorsed by, or sponsored by** the Goose project or its maintainers.
+- **Notice of modifications** (Apache-2.0 §4): this distribution modifies upstream Goose as follows: (1) the Electron desktop runtime is replaced by a Tauri 2 shell; (2) an isolated browser panel and Agent browser control are added; (3) default configuration and security policies are adjusted (update signature verification, branded data directory, etc.). Unmodified parts stay identical to upstream.
 - Distributed under the Apache License 2.0; **LICENSE** and **NOTICE** ship with the installer (installed under the application's `resources/` directory) and include upstream attribution and third-party notices.
 - Only prebuilt binaries are published here; **no source code is provided**. Names such as "Goose" appear for attribution only and remain the property of their respective owners.
 - Local models are fetched from Hugging Face by the app and are **not redistributed** here; each model's license is governed by its model page (for example Qwen2.5 is Apache-2.0, while the Gemma family follows the Google Gemma Terms).
