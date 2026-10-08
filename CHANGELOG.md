@@ -1,6 +1,52 @@
 # Changelog
 
-本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 改进与修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
+本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
+
+Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
+
+## [1.14.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.14.0) — 2026-10-06
+
+### 新增
+- **本地 OpenAI 兼容网关**：本机上的 IDE、脚本与第三方工具可以直接连接你已下载的本地模型（也可以把请求用**你自己的 API Key** 转发到你配置的云端提供商）。**默认不监听**——在「设置 → 网关」里配置别名并开启后才会启动；仅监听本机 `127.0.0.1`，所有请求都需要令牌（令牌明文只保存在系统凭据库），并且面板里常显数据去向说明
+- **点击通知直接回到对话窗口**：点击「任务完成」这类系统通知，即可把 ChengYoung 窗口带回前台
+- **标题栏新增置顶图钉**：一键把窗口置顶；同时开多个窗口时，每个窗口各记各的状态
+
+### 修复
+- **全新安装也会把数据放在 ChengYoung 自己的目录下**：此前只有从旧版本升级过的用户会迁移数据，全新安装的用户数据仍写在旧版目录里（与旧版应用并装会互相影响）；现在两种情况一致，都在 `%APPDATA%\ChengYoung\` 下
+- **应用内「项目提示」帮助页的配置目录改成真实路径**：此前仍写着品牌化之前的旧目录
+- **首次启动的数据说明改写为「你的数据，始终在你手里」**：四条改为「存储位置 / 无遥测 / 审计日志 / API Key」的分组写法，写明数据保存在本机 `%APPDATA%\ChengYoung` 目录且不经过我们的服务器、不会向任何外部地址上传遥测或行为数据、审计日志默认加密存储且仅你可读写（可随时关闭或彻底删除）、API Key 只存放在操作系统密钥链中且不以明文写盘
+- **右栏文件树在每轮对话结束后自动刷新**：此前要手动刷新才能看到新文件
+- **中文回复更一致**：强化了输出语言指令，减少回复里中英混排
+- **网关在异常退出后能正常启动**：断电或进程被杀会留下半条审计记录，此前会让网关无法启动；现在只丢弃这条损坏的尾部记录并记入日志，其余记录完整保留（本机加密审计文件位于数据目录的 `gateway\` 下）
+- **提示文件改用 ChengYoung 自己的名字 `.cyhints`**：此前设置 → 聊天的标题、配置弹窗与「使用 .goosehints」帮助页里都写着上游的 `.goosehints`，现在界面与帮助文档统一为 `.cyhints`。**旧项目里的 `.goosehints` 照旧会被读取**（不必改名、内容零丢失），应用新建或保存时写入 `.cyhints`
+- **右栏浏览器工具条改为图标按钮**：打开 / 关闭 / 用系统浏览器打开 / 后退 / 前进 / 刷新只留图标，含义改为**鼠标悬停提示**显示（键盘聚焦同样显示）—— 这些文案在其它语言里可能长出一倍，此前会把按钮行折成两三行、把网页区域挤小
+- **回答「怎么做」类问题时先说明、不抢跑**：本地小模型面对「怎么创建工作流」这类提问，会先用文字把方法讲清楚，再主动提议代为执行，而不是上来就运行命令演示
+- **工作流目录指引统一为 `.agents/recipes/`**：模型介绍工作流的存放位置时，统一指向项目内的 `.agents/recipes/` 目录（各工具通用的约定）；老项目里 `.goose/recipes/` 下的工作流**照旧会被读取**，无需迁移
+
+### 安全
+- 网关仅绑定本机回环地址，校验 `Host` 头（防 DNS 重绑定），不返回任何 CORS 头；除健康检查外所有端点都要求令牌
+- 审计日志**只记录元数据**（模型、Token 数、延迟），对话正文永不写入，且在本机加密保存；面板提供一键清空
+
+### Added
+- **Local OpenAI-compatible gateway**: IDEs, scripts and third-party tools on this computer can connect directly to the local models you already downloaded (or forward requests to the cloud provider you configured, using **your own API Key**). It does **not listen by default** — it starts only after you add an alias and turn it on in Settings → Gateway. It binds to `127.0.0.1` only, every request needs a token (the plaintext token is stored in the system keychain), and the panel always shows where data goes
+- **Clicking a notification brings the chat window back to the front**
+- **New pin button in the title bar**: keep the window always on top; with multiple windows open, each window tracks its own state
+
+### Fixed
+- **Fresh installs now keep their data under ChengYoung's own directory too**: previously only upgrades migrated it, while a brand-new installation still wrote into the legacy directory (so the two interfered); both paths now use `%APPDATA%\ChengYoung\`
+- **The bundled "project hints" help page shows the real config directory**: it still named the pre-branding path
+- **The first-launch data notice now reads "Your data stays in your hands"**: the four points are grouped as Storage / No telemetry / Audit logs / API keys — stating that data stays in your local `%APPDATA%\ChengYoung` folder and never passes through our servers, that no telemetry or behavioral data is uploaded to any external address, that audit logs are stored encrypted by default and readable only by you (turn them off or delete them at any time), and that API keys live only in your OS keychain and are never written to disk in plain text
+- **The file tree in the right panel now refreshes automatically at the end of every turn** (it previously needed a manual refresh)
+- **More consistent Chinese replies**: the output-language instruction was strengthened to reduce mixed-language answers
+- **Gateway recovers after a crash or forced kill**: a power loss or killed process could leave a truncated audit record, which previously prevented the gateway from starting; the app now discards only that corrupted trailing record and logs it, while all other records stay intact (the local encrypted audit file is stored in the `gateway` subfolder of the data directory)
+- **Project hints now use ChengYoung's own file name `.cyhints`**: the Settings → Chat page title, the configuration dialog, and the bundled help page used to name the upstream `.goosehints`; the UI and the help documents now say `.cyhints`. Existing `.goosehints` files are still read, so nothing needs renaming and no content is lost; the app writes `.cyhints` when it creates or saves the file
+- **Browser toolbar uses icons only**: Open / Close / Open in system browser / Back / Forward / Refresh now show a hover tooltip (also on keyboard focus) instead of text — those labels can be twice as long in other languages, which used to wrap the button row onto two or three lines and shrink the page area
+- **How-to questions get an explanation first**: when asked things like "how do I create a workflow?", local small models now answer in words first and offer to run it for you, instead of jumping straight into running demo commands
+- **Workflow directory guidance unified on `.agents/recipes/`**: when describing where workflows live, the model now points to the project's `.agents/recipes/` directory (a tool-agnostic convention); workflows under `.goose/recipes/` in older projects **are still read** — nothing needs migrating
+
+### Security
+- The gateway binds to the loopback address only, validates the `Host` header (anti DNS-rebinding) and returns no CORS headers; every endpoint except the health check requires the bearer token
+- Audit logs keep **metadata only** (model, token counts, latency) — conversation content is never written — and are stored encrypted on this computer, with a one-click clear button
 
 ## [1.13.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.13.0) — 2026-10-05
 
