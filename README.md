@@ -23,7 +23,7 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 
 | 亮点 | 说明 |
 | --- | --- |
-| **轻量定制外壳（Tauri 2）** | 采用基于 Tauri 2 的定制外壳，替代上游 Electron 桌面运行时：安装包约 **62 MB**，外壳体积仅 **17.7 MB**，并复用系统 WebView2；支持应用内**自动更新**（minisign 签名校验，签名不匹配将拒绝安装） |
+| **轻量定制外壳（Tauri 2）** | 采用基于 Tauri 2 的定制外壳，替代上游 Electron 桌面运行时：**安装包与外壳体积较 Electron 方案大幅减小**，并复用系统 WebView2；支持应用内**自动更新**（minisign 签名校验，签名不匹配将拒绝安装） |
 | **完全本地 + 零遥测** | 本地推理引擎支持 **Vulkan GPU 加速**（并针对核显与独显混合架构设备进行了稳定性优化）；**不收集、不上传任何使用数据** |
 | **安全内嵌浏览器** | 第三方网页在**隔离面板**（主窗口内的子 WebView）中打开：独立配置目录、零注入，且无法获取任何应用权限；Agent 浏览器控制**默认关闭**，按站点授权并逐次确认，页面端自动拦截敏感字段输入，输入内容绝不写入日志 |
 
@@ -48,7 +48,7 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 | 技能、应用、调度、扩展 | 内置能力提供可视化管理；扩展采用 MCP 协议（可自行配置第三方 MCP 服务器），敏感操作会先请求许可 |
 | **Agent 浏览器控制** | 读取页面文本、点击元素、输入并提交表单，**默认关闭**、按站点授权并逐次确认，页面端自动拦截敏感字段输入，输入内容绝不写入日志 |
 | 工作区右侧面板（Workspace Panel） | 文件、媒体、运行结果；以及**内嵌浏览器**（第三方网页在**隔离面板**中打开，独立配置目录、零注入，无法访问应用与你的文件） |
-| 提示词与提示文件 | 查看 / 覆盖 9 个内置提示模板，编辑项目与全局 `.goosehints` |
+| 提示词与提示文件 | 查看 / 覆盖 9 个内置提示模板，编辑项目与全局提示文件（`.cyhints`，兼容 `.goosehints`） |
 | **通知中心** | 状态栏铃铛会留存所有通知：未读计数、单条清除与全部清除；留存仅在内存中，不写入任何文件 |
 | 上下文与工作区感知 | 顶栏常驻上下文占用与自动压缩刻度；工作区未提交变更徽章（本地只读统计） |
 | 系统集成 | 系统托盘、**关闭时最小化到托盘**、全局快捷键快速启动器、**命令面板**、`goose://` 深链、16 种界面语言 |
@@ -68,14 +68,14 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 ## 环境要求
 
 - Windows 10 / 11（x64）
-- 安装包约 62 MB（已含本地推理引擎）；本地模型按需下载，体积另计
+- 安装包约 65 MB（随版本略有变化，已含本地推理引擎）；本地模型按需下载，体积另计
 - Windows 11 已内置 WebView2；Windows 10 首次安装时安装器会联网补装 WebView2 运行时
 - 运行本地模型的内存参考：**最低可启动** 8 GB（仅小参数模型、短上下文）；**日常流畅** 16 GB 内存 / 8 GB 显存（7B 模型，4K–8K 上下文）；**长上下文** 16 GB 以上显存或 32 GB 内存（7B 模型，16K 以上上下文，或更大参数模型）。使用 GPU 加速需要支持 Vulkan 的显卡驱动。
 
 ## 校验下载
 
 ```powershell
-# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.10.0_x64-setup.exe）
+# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.14.0_x64-setup.exe）
 certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ```
 
@@ -97,7 +97,7 @@ certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 
 - 本发行版是基于开源项目 **Goose**（Agentic AI Foundation / Linux Foundation，Apache License 2.0）的**品牌化构建与独立发行版**；它**并非** Goose 官方发行版，与上游项目及其维护者**无隶属、背书或赞助关系**。
 - **修改声明**（Apache-2.0 第 4 节）：本发行版对上游 Goose 做了以下层面的修改：(1) 以 Tauri 2 外壳替代 Electron 桌面运行时；(2) 新增浏览器隔离面板与 Agent 浏览器控制功能；(3) 调整默认配置与安全策略（更新签名校验、数据目录品牌化等）。未修改的部分与上游保持一致。
-- 分发遵循 Apache License 2.0；**LICENSE** 与 **NOTICE** 随安装包分发（安装后位于应用目录的 `resources/` 下，含上游署名与第三方组件声明）。
+- 分发遵循 Apache License 2.0；**LICENSE**、**NOTICE** 与 **THIRD_PARTY_NOTICES**（穷举第三方许可清单）随安装包分发（安装后位于应用目录的 `resources/` 下，含上游署名与第三方组件声明）。
 - 本仓库发布的是**编译产物，不提供源代码**；文中出现的 “Goose” 等名称仅用于说明来源，相关商标归其权利人所有。
 - 本地模型由应用从 Hugging Face 获取，**不随本发行版分发**；模型的许可以其**模型页**为准（例如 Qwen2.5 为 Apache-2.0，Gemma 系列遵循 Google Gemma Terms）。
 
@@ -120,7 +120,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 
 | Area | What you get |
 | --- | --- |
-| **Lightweight custom Tauri 2 shell** | A custom Tauri 2 shell replaces the upstream Electron desktop runtime: the installer is about **62 MB**, the shell is just **17.7 MB**, reusing the OS WebView2; in-app **auto-update** (minisign-verified; rejected on signature mismatch) |
+| **Lightweight custom Tauri 2 shell** | A custom Tauri 2 shell replaces the upstream Electron desktop runtime: **installer and shell are dramatically smaller than an Electron-based form**, reusing the OS WebView2; in-app **auto-update** (minisign-verified; rejected on signature mismatch) |
 | **Fully local, zero telemetry** | Local inference with **Vulkan GPU acceleration** (stability-optimized for hybrid iGPU/dGPU setups); **no usage data is collected or uploaded** |
 | **Secure embedded browser** | Third-party pages open in an **isolated panel** (a child webview in the main window): separate profile / zero injection / no access to app capabilities; Agent browser control is **off by default**, per-site authorization + per-action confirmation, sensitive field input is automatically intercepted on the page, and input content is never logged |
 
@@ -145,7 +145,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 | Skills / Apps / Scheduler / Extensions | Built-in capabilities are managed visually in-app; extensions use the MCP protocol (third-party MCP servers supported), and sensitive actions require permission first |
 | **Agent browser control** | Read page text, click elements, and type into or submit forms — **off by default**, per-site authorization + per-action confirmation, sensitive field input is automatically intercepted on the page, and input content is never logged |
 | Workspace right panel | Files, media and run results — plus an **embedded browser** (third-party pages open in an **isolated panel** with their own profile and cannot reach the app or your files) |
-| Prompts and hints | Inspect or override the 9 built-in prompt templates, and edit project or global `.goosehints` |
+| Prompts and hints | Inspect or override the 9 built-in prompt templates, and edit project or global hint files (`.cyhints`, with `.goosehints` supported for compatibility) |
 | **Notification center** | A bell in the status bar archives every notification: unread counter, per-item dismiss and clear all; the archive lives in memory only and is never written to any file |
 | Context & workspace awareness | Persistent context-usage bar with auto-compaction scale in the top bar; a badge for uncommitted workspace changes (read-only, computed locally) |
 | System integration | Tray icon, **minimize to tray on close**, global-shortcut quick launcher, **command palette**, `goose://` deep links, 16 UI languages |
@@ -165,14 +165,14 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 ### Requirements
 
 - Windows 10 / 11 (x64)
-- The installer is about 62 MB (the local inference engine is included); models are downloaded on demand, with separate download sizes
+- The installer is about 65 MB (slightly varies per release; the local inference engine is included); models are downloaded on demand, with separate download sizes
 - Windows 11 ships with WebView2; on Windows 10 the installer fetches the WebView2 runtime if it is missing
 - Memory reference for local models: **minimum to start** 8 GB (small models, short context); **comfortable** 16 GB RAM / 8 GB VRAM (7B models, 4K–8K context); **long context** 16 GB+ VRAM or 32 GB RAM (7B models, 16K+ context, or larger models). GPU acceleration requires a Vulkan-capable driver.
 
 ### Verify the download
 
 ```powershell
-# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.10.0_x64-setup.exe)
+# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.14.0_x64-setup.exe)
 certutil -hashfile ChengYoung_<version>_x64-setup.exe SHA256
 ```
 
@@ -194,7 +194,7 @@ Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app u
 
 - This is a **branded build and independent distribution** of the open-source **Goose** project (Agentic AI Foundation / Linux Foundation, Apache License 2.0). It is **not** an official Goose release and is **not affiliated with, endorsed by, or sponsored by** the Goose project or its maintainers.
 - **Notice of modifications** (Apache-2.0 §4): this distribution modifies upstream Goose as follows: (1) the Electron desktop runtime is replaced by a Tauri 2 shell; (2) an isolated browser panel and Agent browser control are added; (3) default configuration and security policies are adjusted (update signature verification, branded data directory, etc.). Unmodified parts stay identical to upstream.
-- Distributed under the Apache License 2.0; **LICENSE** and **NOTICE** ship with the installer (installed under the application's `resources/` directory) and include upstream attribution and third-party notices.
+- Distributed under the Apache License 2.0; **LICENSE**, **NOTICE**, and **THIRD_PARTY_NOTICES** (the exhaustive third-party license list) ship with the installer (installed under the application's `resources/` directory) and include upstream attribution and third-party notices.
 - Only prebuilt binaries are published here; **no source code is provided**. Names such as "Goose" appear for attribution only and remain the property of their respective owners.
 - Local models are fetched from Hugging Face by the app and are **not redistributed** here; each model's license is governed by its model page (for example Qwen2.5 is Apache-2.0, while the Gemma family follows the Google Gemma Terms).
 
