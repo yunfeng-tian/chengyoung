@@ -4,6 +4,26 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.15.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.15.0) — 2026-10-10
+
+### 新增
+- **插件系统（首批）**：新增「设置 → 插件」，可以从 git 仓库安装插件，为 ChengYoung 扩展技能、命令与生命周期钩子。安装分两步：先下载，**启用前先审阅**——清单会列出插件提供的组件，钩子明确标注「会在本机执行命令」；安装后默认停用、由你逐个启用；「自动更新」默认关闭、需逐插件手动开启；卸载会同时清理配置与文件、不留残留。隐私说明同步更新：插件只在你安装或更新时从其来源下载，此外无任何联网行为
+- **本地模型自动调用显卡**：启动本地模型时按显存大小自动决定放入显卡的层数——放得下就整体进显卡（更快），放不下就自动把多出的层留在内存，避免「显存不够还硬塞」导致的加载失败
+- **双显卡笔记本的本地推理更稳**：核显 + 独显并存的机器上，此前本地模型可能因显存被分配到核显而启动失败；现在启动时固定使用独立显卡
+- **更新失败可见**：应用内检查或下载更新失败时，失败原因会常驻显示在设置里（此前只弹一次提示，错过就无处可看）；托盘菜单新增「检查更新」入口
+
+### 修复
+- **移除已失效的「分享到 Nostr」入口**：该能力已退役，旧入口点了也不会成功；从 Nostr 链接导入会话不受影响
+
+### Added
+- **Plugin system (first batch)**: a new Settings → Plugins page lets you install plugins from git repositories to extend ChengYoung with skills, commands, and lifecycle hooks. Installation is two-step: download first, then **review before enabling** — the dialog lists the plugin's components and clearly marks hooks that run commands on this machine. Plugins are disabled by default and enabled individually; per-plugin auto-update is off by default and must be turned on manually; uninstalling removes both config entries and files with nothing left behind. The privacy notice is updated accordingly: plugins are downloaded from their source only when you install or update them, with no other network activity
+- **Local models use your GPU automatically**: when starting a local model, the number of layers offloaded to the GPU is now chosen from your VRAM size — the model goes entirely to the GPU when it fits (faster), otherwise extra layers stay in memory, avoiding failures from over-offloading
+- **More reliable local inference on dual-GPU laptops**: on machines with both an integrated and a discrete GPU, local models could previously fail to start when memory was allocated to the integrated GPU; startup now pins the discrete GPU
+- **Update failures are visible**: when an in-app update check or download fails, the reason now stays visible in Settings (it previously flashed once and was gone); the tray menu gains a "Check for updates" entry
+
+### Fixed
+- **Removed the defunct "Share to Nostr" entry**: the capability was retired and the old entry never succeeded; importing sessions from Nostr links is unaffected
+
 ## [1.14.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.14.0) — 2026-10-06
 
 ### 新增
