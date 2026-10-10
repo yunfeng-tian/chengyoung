@@ -4,6 +4,20 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.16.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.16.0) — 2026-10-10
+
+### 新增
+- **从本地目录安装插件**：除 git 仓库外，现在可以直接选择电脑上的插件文件夹进行安装（适合企业内网与离线分发场景）。本地目录安装同样走「下载 → 启用前审阅」两步确认；「自动更新」仍仅对 git 来源开放（本地目录没有可拉取的远端）
+
+### 修复
+- **插件披露更完整**：插件提供的命令（commands）现在也会列在安装确认对话框与插件详情中（此前只列技能、MCP 服务器与钩子）；卸载提示同步更新
+
+### Added
+- **Install plugins from a local directory**: alongside git repositories, you can now point the installer at a folder on your computer (useful for offline and intranet distribution). Local installs go through the same two-step "download → review before enabling" flow; per-plugin auto-update remains git-only, since a local directory has nothing to pull from
+
+### Fixed
+- **More complete plugin disclosure**: a plugin's commands are now listed in the install review dialog and the plugin details (previously only skills, MCP servers, and hooks were shown); the uninstall prompt is updated accordingly
+
 ## [1.15.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.15.0) — 2026-10-10
 
 ### 新增
