@@ -4,6 +4,32 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.18.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.18.0) — 2026-10-13
+
+### 新增
+
+- **会话回放**：会话历史列表与顶栏会话名菜单新增「查看回放」——全屏只读时间线按发生顺序还原一场对话：你的消息、AI 回复、工具调用与结果（子代理调用带专属徽标）、思考过程与系统事件；支持关键词过滤（检索范围含工具结果正文）与分页加载（每次 200 条）。
+- **双阶段求助诊断**：从错误通知的「问问 ChengYoung」发起的求助会话先进入**只读诊断**——模型不执行任何命令，只收集信息并给出分析建议（输入区顶部显示诊断徽标）；你确认后点「开始修复」，会话切换为修复模式并自动发出开始指令，模型给出工具操作供你逐条确认执行；切换失败会明确提示且徽标保留。
+- **错误求助自带完整上下文**：「问问 ChengYoung」现在会把错误标题、描述、堆栈与恢复建议整理为结构化求助草稿（路径、密钥类敏感信息自动脱敏），填入输入框供你补充场景后发送；不再仅发送一个英文模板句子。
+- **网关指标新增引擎维度**（实验性功能，默认关闭）：本机网关开启后，`/metrics` 端点新增 `engine_` 前缀指标（引擎启动次数、自动重启次数、最近一次启动耗时）。
+
+### 修复
+
+- **中文与繁中界面补全「本地目录安装插件」的来源占位文案**（此前为英文原文）。
+- **会话卡片布局优化**：悬停操作按钮合并进信息底行，卡片更紧凑、不再预留空行。
+
+### Added
+
+- **Session replay**: new "View replay" actions in the session history list and the top-bar session menu open a full-screen, read-only timeline that reconstructs a conversation in order — your messages, AI replies, tool calls with results (sub-agent calls with a badge), thinking blocks and system events — with keyword filtering (search covers tool result text) and paginated loading (200 events per page).
+- **Two-phase diagnostic help**: help sessions started from the "Ask ChengYoung" action on error notifications now begin in a **read-only diagnosis** phase — the model runs no commands and only gathers information and suggestions (a diagnostic badge shows above the input). Once you confirm, "Start fixing" switches the session to fix mode and automatically sends the kickoff instruction; the model then proposes tool actions for your per-item approval. A failed switch shows a clear notice and keeps the badge.
+- **Error help now carries full context**: "Ask ChengYoung" builds a structured help draft — error title, description, sanitized stack trace and recovery hints (paths and secret-like values are redacted automatically) — into the input box for you to review and send; no more just a single English template sentence.
+- **Engine metrics on the gateway** (experimental, off by default): once the local gateway is enabled, `/metrics` gains `engine_`-prefixed gauges (engine starts, automatic restarts, last start duration).
+
+### Fixed
+
+- The "install from local directory" source placeholder in the plugin dialog is now properly translated in Simplified and Traditional Chinese (previously shown in English).
+- Session card layout: hover actions merged into the info row — cards are more compact with no reserved empty row.
+
 ## [1.17.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.17.0) — 2026-10-12
 
 ### 新增
