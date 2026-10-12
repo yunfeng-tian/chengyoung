@@ -4,6 +4,22 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.17.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.17.0) — 2026-10-12
+
+### 新增
+- **内置帮助中心（用户指南）**：对话页右上角的 ChengYoung Logo 现在打开全屏「用户指南」——16 篇离线文档随包分发（快速开始、安装与更新、本地模型、工作流、扩展、技能、调度、会话管理、上下文控制、插件、代码库分析、权限与安全、隐私、常见问题、使用技巧、限流与配额），目录树导航；可收起为悬浮图标随时回到对话，再次点击恢复到原阅读位置；非中英文界面自动切换至中文或英文文档并给出提示
+- **凭据保护升级**：应用保存的凭据（如云端模型 API Key）迁移到独立的系统密钥链命名空间，与同机安装的官方原版应用互不共享；升级时旧凭据自动迁移、无需任何操作；系统密钥链不可用时不再静默降级为明文文件，而是明确报错（安全行为收紧）
+
+### 修复
+- **扩展（MCP）配置校验更严格**：添加扩展时，若 stdio 类型的命令字段中填入了网址，或 Streamable HTTP 类型的端点不是合法的 http(s) 地址，系统会立即在表单内提示并阻止保存（此前会先保存成功，连接时才暴露失败）
+
+### Added
+- **Built-in help center (user guide)**: the ChengYoung logo at the top-right of the chat page now opens a full-screen "User Guide" — 16 offline docs bundled with the app (quick start, install & update, local models, workflows, extensions, skills, scheduler, session management, context control, plugins, codebase analysis, permissions & safety, privacy, FAQ, tips, rate limits & quotas) with a table-of-contents tree; minimize it to a floating badge to jump back to the conversation and restore your reading position later; non-Chinese/English locales automatically fall back to the Chinese or English docs with a hint
+- **Stronger credential protection**: credentials saved by the app (such as cloud model API keys) now live in a dedicated system keychain namespace, never shared with the official upstream app installed on the same machine; legacy credentials migrate automatically on upgrade with zero action needed; when the system keychain is unavailable the app now fails with a clear error instead of silently falling back to a plaintext file (security hardening)
+
+### Fixed
+- **Stricter extension (MCP) config validation**: when adding an extension, if a URL is entered in the command field of a stdio extension, or the endpoint of a Streamable HTTP extension is not a valid http(s) URL, the app flags it inline and blocks saving (previously it saved first and only failed when connecting)
+
 ## [1.16.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.16.0) — 2026-10-10
 
 ### 新增
