@@ -75,7 +75,7 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 ## 校验下载
 
 ```powershell
-# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.14.0_x64-setup.exe）
+# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.17.0_x64-setup.exe）
 certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ```
 
@@ -90,6 +90,7 @@ certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ## 反馈
 
 - 问题与建议：本仓库的 [Issues](https://github.com/yunfeng-tian/chengyoung/issues)
+- 网站：https://chengyoung.com
 - 邮件支持：**support@chengyoung.com**
 - 应用内「设置 → 关于 ChengYoung」可一键复制诊断信息（粘贴至 Issue 或邮件中，以便更快定位问题）
 
@@ -172,7 +173,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 ### Verify the download
 
 ```powershell
-# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.14.0_x64-setup.exe)
+# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.17.0_x64-setup.exe)
 certutil -hashfile ChengYoung_<version>_x64-setup.exe SHA256
 ```
 
@@ -187,6 +188,7 @@ Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app u
 ### Feedback
 
 - Issues and suggestions in this repository: [yunfeng-tian/chengyoung/issues](https://github.com/yunfeng-tian/chengyoung/issues)
+- Website: https://chengyoung.com
 - Email support: **support@chengyoung.com**
 - In the app, *Settings → About ChengYoung* lets you copy a diagnostic report with one click (paste it into your issue or email to help diagnose the problem faster).
 
