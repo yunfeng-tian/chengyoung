@@ -4,6 +4,152 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.20.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.20.0) — 2026-10-17
+
+> **行为变化**：听写设置不再提供「使用对话模型直接转写音频」的选项（该方式需要支持音频输入的模型，普通文本模型会转写失败）——已配置该方式的会话会自动切回「禁用」，请改用本地模型或云端转写服务。另外，输入框工具区已重新布局：添加文件 / 图片的入口移至左下角「+」菜单，麦克风按钮移至发送按钮旁。
+
+### 新增
+
+- **会话模式一键切换**：在输入框中即可在 自主 / 手动 / 智能 / 仅聊天 四种模式间切换，仅对当前会话生效；新会话的默认模式仍在设置中选择。
+- **全局右键菜单**：在对话区右键即可复制所选文字、复制整条消息、朗读，或把选中内容作为引用加入输入框；空白处右键不再弹出浏览器默认菜单。
+- **听写转写语言设置**：本地听写新增转写语言选择（此前固定按英文识别），支持中文、英语、日语、韩语等 15 种语言。
+- **「+」添加菜单**：输入框左下角新增添加入口，上传图片（自动压缩、可预览）与上传文件一步完成。
+- **历史消息窗口**：超长会话默认只加载最近 100 条消息，打开速度显著提升；更早的历史可一键展开（每次 100 条），Ctrl+F 全历史搜索功能保留不变，且不再出现加载动画闪烁。
+- **消息操作行统一**：所有回复都提供复制入口（此前工具调用类回复没有），并新增「复制为 Markdown」（仅纯文本，贴入 GitHub / 编辑器更干净）。
+- **发送即刻响应**：新对话发送消息后立即进入对话页（会话在后台创建），失败时保留草稿可一键重试。
+- **等待状态可操作**：「正在等待你的确认」提示条现在会显示等待数量与类型，点击即可定位到对应的审批卡片。
+
+### 变更
+
+- **输入框工具区重新布局**：添加文件 / 图片的入口移至左下角「+」菜单；麦克风按钮移至发送按钮旁；工具排与输入框边缘的间距整体收紧。
+- **听写转写失败提示更友好**：使用了不支持音频的模型时，会给出更换听写方式的指引，而不是显示技术错误详情。
+- **浏览器面板工具条合并为单行**：导航与页面动作排在同一行，且在浏览器未打开时隐藏不可用的导航按钮（此前为一排置灰按钮）。
+
+### 移除
+
+- 本次发布没有移除既有功能；听写「使用对话模型直接转写」选项的调整见顶部行为变化。
+
+### 修复
+
+- **更新安装不再弹出向导**：点击「安装并重启」后，更新在后台完成并自动重启——期间仅显示一个会自动关闭的进度条，不再弹出需要逐步点击的安装向导窗口。
+- **上下文压缩更干净**：修复压缩超长对话时，内部的压缩进度信息可能进入模型上下文并影响回答质量的问题。
+- **上传文件无响应**：修复了部分环境下选择文件后没有任何反馈的问题（此前会连续弹出两个文件选择器）。
+
+### 安全
+
+- 本次发布未包含已知安全公告；随常规更新一并加固。
+
+> **Behavior change**: dictation settings no longer offer the option to "transcribe audio directly with the conversation model" (it requires a model that supports audio input — plain-text models fail to transcribe). Sessions previously configured this way automatically revert to "Disabled"; please switch to a local model or a cloud transcription service instead. The input box toolbar is also relaid out: the image and file upload entries now live in the "+" menu at the bottom-left, and the microphone button sits next to the send button.
+
+### Added
+
+- **One-click session mode switch**: switch between Autonomous / Manual / Smart / Chat-only right from the input box, applying to the current session only; the default for new sessions is still chosen in Settings.
+- **Global context menu**: right-click in the conversation to copy selected text, copy the whole message, read it aloud, or quote it into the input box; right-clicking empty space no longer shows the browser's default menu.
+- **Dictation transcription language**: local dictation gains a transcription-language setting (previously fixed to English recognition), covering Chinese, English, Japanese, Korean and 11 more languages.
+- **"+" Add menu**: a new add menu at the bottom-left of the input box — upload images (auto-compressed with preview) or files in one step.
+- **History window for long sessions**: very long sessions now load only the latest 100 messages by default (dramatically faster to open); older history expands 100 at a time, Ctrl+F full-history search is preserved, and the flickering loading animation is gone.
+- **Unified message actions**: every reply now has a copy entry (tool-call replies previously had none), plus a new **Copy as Markdown** (plain text only — cleaner when pasting into GitHub or editors).
+- **Instant send on new chats**: sending from a new chat enters the conversation immediately (the session is created in the background); on failure your draft is kept for one-click retry.
+- **Actionable waiting state**: the "waiting for your confirmation" bar now shows how many items are waiting and of which type, and clicking it scrolls to the corresponding approval card.
+
+### Changed
+
+- **Input toolbar relayout**: the image and file upload entries move into the new "+" menu at the bottom-left; the microphone button now sits next to the send button; overall spacing around the toolbar row is tighter.
+- **Friendlier dictation errors**: transcribing with a model that does not support audio now shows guidance on switching dictation providers instead of raw technical details.
+- **Browser panel toolbar merged into a single row**: navigation and page actions share one row, and unavailable navigation buttons are hidden while no browser window is open (previously a row of greyed-out buttons).
+
+### Removed
+
+- No existing features were removed in this release; see the behavior change at the top regarding the dictation option adjustment.
+
+### Fixed
+
+- **No more setup wizard during updates**: clicking "Install & Restart" now finishes the update in the background and restarts the app automatically — only a self-closing progress bar is shown, instead of the full setup wizard.
+- **Cleaner context compaction**: fixed an issue where internal compaction progress details could leak into the model's context during long-conversation compaction and affect response quality.
+- **File upload not responding**: fixed an issue where selecting a file gave no feedback in some environments (two pickers were shown back to back).
+
+### Security
+
+- No known security advisories are included in this release; routine updates and hardening apply as usual.
+
+## [1.19.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.19.0) — 2026-10-15
+
+> **行为变化（Breaking）**：本次同步上游后，执行引擎全面切换至状态机（State Machine）——旧执行循环（agent loop）已移除，状态机成为唯一执行路径；扩展改为**首次使用时才启动**（新对话不再等待全部扩展就绪，启动显著提速）。绝大多数对话行为不变；如遇边缘行为差异请反馈。
+
+### 新增
+
+- **会话导出为交互式 HTML**：将会话导出为单文件 HTML 交互式查看器，便于离线归档与分享。
+- **消息引用**：在对话中选中文字，即可一键「加入消息」作为引用块继续提问。
+- **上下文压缩可视化编辑**：上下文压缩阈值（默认 80%，自动压缩上限 225k token）现在可以在压缩提示条内直接查看与编辑，无需手改配置。
+- **新声明式模型提供商**：新增 AIgateway 与 Z.ai Coding Plan 等声明式提供商定义。
+- **首次配置询问运行模式**：首次运行引导配置时会询问会话的运行模式。
+- **分布式追踪上下文传播**（面向集成开发者）：ACP 提示的 W3C 追踪上下文现在会传播到 MCP 工具调用。
+
+### 变更
+
+- **状态机成为唯一执行引擎**：旧执行循环已移除，所有会话统一由状态机驱动（含空响应重试、工具调用余量核算、子代理前台化等新能力）。
+- **扩展按需启动**：扩展管理器重构为按会话租约（lease）管理，扩展在其首次被会话使用时才启动进程——新会话创建不再等待全部扩展就绪。
+- **提供商会话路由统一**：会话的提供商路由现在统一由单一 ProviderManager 承载。
+- **调度能力模块化**：调度（Scheduler）、平台应用、聊天召回、ACP HTTP 等能力改为按 feature 装配。
+- **工具链升级**：Rust 1.99.0。
+
+### 移除
+
+- **Nostr 会话分享**：随上游一并移除（本产品从未在界面开放该入口）。
+- **MCP sampling**：模型侧采样（`create_message`）随上游重构移除。
+- **后台子代理与编排器**：后台子代理、orchestrator 与旧执行循环一并移除（Doctor 收敛为会话内能力）。
+
+### 修复
+
+- **侧栏会话列表新增加载状态**：会话列表加载中会显示「正在加载…」而非空白（并修复快速切换时的竞态）。
+- **压缩计费口径修复**：长上下文价格分档正确应用于成本估算；Bedrock 不再对非上下文类校验错误重试；缓存写入 token 从 Responses API 用量读取。
+- **提供商令牌刷新**：GitHub Copilot 令牌被撤销后列出模型时会自动刷新（且只刷新一次）。
+- **自适应思考**：Claude Sonnet 与 Claude Haiku 5.5 的自适应思考正确生效。
+- **协议版本声明**：initialize 时上报已实现的协议版本。
+- **GOOSE_MODE 校验**：跨 ACP 提供商拒绝非法的运行模式值。
+- **调度器工具先完成在途调用**：达到最大轮次上限前会先等待在途工具完成。
+
+### 安全
+
+- 本次同步未包含已知安全公告；上游依赖与子进程处理随常规更新一并加固。
+
+### Added
+
+- **Interactive HTML session export**: export a session as a single-file interactive HTML viewer for offline archiving and sharing.
+- **Message quoting**: select text in the conversation and add it to your next message as a blockquote with one click.
+- **Visual context-compaction editing**: the auto-compaction threshold (default 80%, capped at 225k tokens) can now be viewed and edited directly on the compaction alert bar — no manual config edits.
+- **New declarative model providers**: AIgateway, Z.ai Coding Plan and more declarative provider definitions.
+- **First-run mode prompt**: the first-run configure flow now asks for the session mode.
+- **Distributed trace context propagation** (for integrators): W3C trace context from ACP prompts now propagates to MCP tool calls.
+
+### Changed
+
+- **State Machine is now the only execution engine**: the legacy agent loop has been removed; every session is driven by the state machine (with empty-response retries, remaining-tool-call accounting, foregrounded subagents).
+- **Extensions start on first use**: the extension manager was rebuilt around per-session leases — an extension process starts the first time a session requests it, so new sessions no longer wait for every extension to come up.
+- **Unified provider routing**: all session provider routing now goes through a single ProviderManager.
+- **Modular scheduling**: scheduler, platform-apps, chat-recall and ACP HTTP capabilities are now assembled via features.
+- **Toolchain**: Rust 1.99.0.
+
+### Removed
+
+- **Nostr session sharing**: removed along with upstream (never exposed in this product's UI).
+- **MCP sampling** (`create_message`): removed with the upstream refactor.
+- **Background subagents & orchestrator**: background subagents, the orchestrator and the legacy agent loop are gone (Doctor is now session-only).
+
+### Fixed
+
+- **Sidebar session list loading state**: the list now shows a loading indicator instead of blank space (and a race on rapid refreshes is fixed).
+- **Cost accounting fixes**: long-context price tiers apply to estimates; Bedrock no longer retries non-context validation errors; cache write tokens are read from Responses API usage.
+- **Provider token refresh**: revoked GitHub Copilot tokens refresh when listing models (refreshing only once).
+- **Adaptive thinking**: works correctly for Claude Sonnet and Claude Haiku 5.5.
+- **Protocol version stamping**: the implemented protocol version is reported in `initialize`.
+- **GOOSE_MODE validation**: malformed mode values are rejected across ACP providers.
+- **Pending tools finish before max turns**: in-flight tool calls complete before the turn limit is enforced.
+
+### Security
+
+- No known security advisories in this sync; dependency and subprocess hardening landed with the regular update.
+
 ## [1.18.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.18.0) — 2026-10-13
 
 ### 新增
