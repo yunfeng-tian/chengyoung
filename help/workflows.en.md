@@ -7,8 +7,8 @@ A workflow is a saved YAML file that describes a task: the instructions the mode
 | Location | Scope |
 | --- | --- |
 | `recipes/` inside the configuration directory | Every session on this computer |
-| `.goose/recipes/` in the working directory | Sessions that run in that directory |
-| `.agents/recipes/` in the working directory or in the home directory | Shared convention for agents |
+| `.agents/recipes/` in the working directory or in the home directory | Sessions that run in that directory; shared convention for agents |
+| `.goose/recipes/` in the working directory | Sessions that run in that directory (legacy location, still read) |
 
 A workflow added through the interface is written to the configuration directory, so it is available in every session.
 
