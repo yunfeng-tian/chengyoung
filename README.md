@@ -43,14 +43,16 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 | --- | --- |
 | 本地模型 | 应用内搜索和下载 Hugging Face 上的 GGUF 模型，支持 GPU（Vulkan）加速；**模型不随安装包分发**，许可以各模型页为准（Qwen2.5 为 Apache-2.0，Gemma 系列遵循 Google Gemma Terms），下载前请确认是否符合你的使用场景 |
 | 云端模型 | 自备 API Key 接入 Anthropic、OpenAI、Google、OpenRouter、Ollama 等提供商 |
-| 会话 | 支持会话历史、重命名、置顶、导出、归档、一键复制为 Markdown 分享，以及从任意消息派生新会话 |
+| 会话 | 支持会话历史、重命名、置顶、导出、归档、一键复制为 Markdown 分享，以及从任意消息派生新会话；超长会话默认加载最近 100 条消息（更早历史一键展开，Ctrl+F 全文搜索），发送消息即刻响应（会话在后台创建，失败时保留草稿可重试） |
+| **语音输入（听写）** | 按住说话，转成文字填入输入框：本地 Whisper **完全离线转写**（零联网），或接入 OpenAI / Groq / ElevenLabs 云端转写；转写语言可在设置中指定 |
+| **会话模式** | 自主 / 手动 / 智能 / 仅聊天四种模式，在输入框中一键切换（仅对当前会话生效；新会话的默认模式在设置中选择） |
 | 工作流（Recipe） | 将常用任务沉淀为可复用流程；可通过 `goose://recipe?...` 深链分享，运行前会显示流程内容并进行变更确认 |
 | 技能、应用、调度、扩展 | 内置能力提供可视化管理；扩展采用 MCP 协议（可自行配置第三方 MCP 服务器），敏感操作会先请求许可 |
 | **Agent 浏览器控制** | 读取页面文本、点击元素、输入并提交表单，**默认关闭**、按站点授权并逐次确认，页面端自动拦截敏感字段输入，输入内容绝不写入日志 |
 | 工作区右侧面板（Workspace Panel） | 文件、媒体、运行结果；以及**内嵌浏览器**（第三方网页在**隔离面板**中打开，独立配置目录、零注入，无法访问应用与你的文件） |
 | 提示词与提示文件 | 查看 / 覆盖 9 个内置提示模板，编辑项目与全局提示文件（`.cyhints`，兼容 `.goosehints`） |
 | **通知中心** | 状态栏铃铛会留存所有通知：未读计数、单条清除与全部清除；留存仅在内存中，不写入任何文件 |
-| 上下文与工作区感知 | 顶栏常驻上下文占用与自动压缩刻度；工作区未提交变更徽章（本地只读统计） |
+| 上下文与工作区感知 | 顶栏常驻上下文占用与自动压缩状态条；工作区未提交变更徽章（本地只读统计） |
 | 系统集成 | 系统托盘、**关闭时最小化到托盘**、全局快捷键快速启动器、**命令面板**、`goose://` 深链、16 种界面语言 |
 | 权限与安全 | 工具执行前的权限确认、工作目录绑定、工作流变更二次确认 |
 
@@ -60,10 +62,10 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 - 应用会在以下情况联网：
   1. 下载本地模型（Hugging Face，用户主动）
   2. 检查 / 下载更新（GitHub Releases；应用默认**定期自动检查并自动下载**，可在设置 → 关于 ChengYoung 中关闭）
-  3. 调用你自行配置的模型提供商 API（用户主动）
+  3. 调用你自行配置的模型或语音转写服务 API（用户主动）
 - **自动检查更新补充**：检查请求只从 GitHub Releases 拉取版本清单，不上传任何本机数据；下载完成后会通知你，**安装前会再次确认**。
 - 会话与设置保存在本机 `%APPDATA%\ChengYoung\` 目录（1.13.0 起首次启动会把旧版位于 `%APPDATA%\Block\goose\` 的数据自动复制到新目录，旧目录保留不动——与原版 Goose 并装互不影响；也可用环境变量 `GOOSE_PATH_ROOT` 自行指定数据根）。
-- **自行验证**：在未执行上述操作时，可以用 Windows「资源监视器」或 Procmon 观察应用的网络活动——不应出现任何出站连接。
+- **自行验证**：在未执行上述操作时，可以用 Windows「资源监视器」或 Process Monitor（Procmon）观察应用的网络活动——不应出现任何出站连接。
 
 ## 环境要求
 
@@ -75,11 +77,11 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 ## 校验下载
 
 ```powershell
-# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.18.0_x64-setup.exe）
+# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.20.0_x64-setup.exe）
 certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ```
 
-将输出的哈希与同一 Release 的 `SHA256SUMS.txt` 逐字比对。应用内更新的安装包由更新器自动校验 minisign 签名（公钥指纹 `3651-C9C4-6E36`，即内置公钥 SHA-256 的前 12 位，可在 Release 页面核对），签名不匹配会被拒绝安装。
+将输出的哈希与同一 Release 的 `SHA256SUMS.txt` 逐字比对。应用内更新的安装包由更新器自动校验 minisign 签名（公钥指纹 `3651-C9C4-6E36`，即内置公钥 SHA-256 的前 12 个十六进制字符，可在 Release 页面核对），签名不匹配会被拒绝安装。
 
 ## 常见问题
 
@@ -121,7 +123,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 
 | Area | What you get |
 | --- | --- |
-| **Lightweight custom Tauri 2 shell** | A custom Tauri 2 shell replaces the upstream Electron desktop runtime: **installer and shell are dramatically smaller than an Electron-based form**, reusing the OS WebView2; in-app **auto-update** (minisign-verified; rejected on signature mismatch) |
+| **Lightweight custom Tauri 2 shell** | A custom Tauri 2 shell replaces the upstream Electron desktop runtime: **installer and shell are dramatically smaller than an Electron-based distribution**, reusing the OS WebView2; in-app **auto-update** (minisign-verified; rejected on signature mismatch) |
 | **Fully local, zero telemetry** | Local inference with **Vulkan GPU acceleration** (stability-optimized for hybrid iGPU/dGPU setups); **no usage data is collected or uploaded** |
 | **Secure embedded browser** | Third-party pages open in an **isolated panel** (a child webview in the main window): separate profile / zero injection / no access to app capabilities; Agent browser control is **off by default**, per-site authorization + per-action confirmation, sensitive field input is automatically intercepted on the page, and input content is never logged |
 
@@ -141,14 +143,16 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 | --- | --- |
 | Local models | Search and download GGUF models from Hugging Face in-app, with GPU (Vulkan) acceleration; **models are not bundled**, and their licenses are governed by each model page (e.g. Qwen2.5 is Apache-2.0, the Gemma family follows the Google Gemma Terms) — please check before downloading whether a model fits your use case |
 | Cloud models | Bring your own API key for Anthropic, OpenAI, Google, OpenRouter, Ollama and more |
-| Sessions | History, rename, pin, export, archive, one-click **copy as Markdown** for sharing, and branch a new session from any message |
+| Sessions | History, rename, pin, export, archive, one-click **copy as Markdown** for sharing, and branch a new session from any message; very long sessions load the latest 100 messages first (older history expands on demand, Ctrl+F searches everything), and messages send instantly — the session is created in the background with your draft kept on failure |
+| **Voice dictation** | Speak and have text filled into the input box: on-device Whisper transcription (**fully offline**) or cloud providers (OpenAI / Groq / ElevenLabs); the transcription language is configurable in Settings |
+| **Session modes** | Autonomous / Manual / Smart / Chat-only — switch in one click from the input box (applies to the current session; the default for new sessions lives in Settings) |
 | Workflows (Recipes) | Turn recurring tasks into reusable flows and share them with `goose://recipe?...` links; the content is shown and changes are confirmed before running |
 | Skills / Apps / Scheduler / Extensions | Built-in capabilities are managed visually in-app; extensions use the MCP protocol (third-party MCP servers supported), and sensitive actions require permission first |
 | **Agent browser control** | Read page text, click elements, and type into or submit forms — **off by default**, per-site authorization + per-action confirmation, sensitive field input is automatically intercepted on the page, and input content is never logged |
 | Workspace right panel | Files, media and run results — plus an **embedded browser** (third-party pages open in an **isolated panel** with their own profile and cannot reach the app or your files) |
 | Prompts and hints | Inspect or override the 9 built-in prompt templates, and edit project or global hint files (`.cyhints`, with `.goosehints` supported for compatibility) |
 | **Notification center** | A bell in the status bar archives every notification: unread counter, per-item dismiss and clear all; the archive lives in memory only and is never written to any file |
-| Context & workspace awareness | Persistent context-usage bar with auto-compaction scale in the top bar; a badge for uncommitted workspace changes (read-only, computed locally) |
+| Context & workspace awareness | Persistent context-usage and auto-compaction bar in the top bar; a badge for uncommitted workspace changes (read-only, computed locally) |
 | System integration | Tray icon, **minimize to tray on close**, global-shortcut quick launcher, **command palette**, `goose://` deep links, 16 UI languages |
 | Permissions and security | Explicit permission prompts before tool calls, bound working directories, and secondary confirmation for workflow changes |
 
@@ -158,7 +162,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 - The app goes online in the following cases:
   1. Download local models (Hugging Face; user-initiated)
   2. Check for or download updates (GitHub Releases; the app **periodically checks and downloads by default**, which can be turned off in Settings → About ChengYoung)
-  3. Call the APIs of the model providers you configured (user-initiated)
+  3. Call the APIs of the model or speech-to-text providers you configured (user-initiated)
 - **About automatic checks**: the check request only fetches the version manifest from GitHub Releases and never uploads anything from your machine; once downloaded you are notified and **installation asks for confirmation**.
 - Sessions and settings live on your machine in `%APPDATA%\ChengYoung\` (from 1.13.0, the first launch copies data from the legacy `%APPDATA%\Block\goose\` directory to the new one; the old directory is left untouched, so coexisting with the original Goose is safe. You can also override the data root with the `GOOSE_PATH_ROOT` environment variable).
 - **Verify it yourself**: when none of the above is happening, watch the app's network activity with Windows Resource Monitor or Process Monitor — no outbound connections should appear.
@@ -173,11 +177,11 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 ### Verify the download
 
 ```powershell
-# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.18.0_x64-setup.exe)
+# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.20.0_x64-setup.exe)
 certutil -hashfile ChengYoung_<version>_x64-setup.exe SHA256
 ```
 
-Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app update installers are automatically verified by the updater against the minisign signature (public-key fingerprint `3651-C9C4-6E36`, the first 12 hex characters of the SHA-256 of the built-in public key — check it on the Release page) and are rejected if it does not match.
+Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app update installers are automatically verified by the updater against the minisign signature (public-key fingerprint `3651-C9C4-6E36` — the first 12 hex characters of the built-in public key's SHA-256; see the Release page) and are rejected if it does not match.
 
 ### FAQ
 
