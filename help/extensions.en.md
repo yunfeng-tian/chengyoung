@@ -25,6 +25,8 @@ Extensions are not skills and not apps: a skill is a reusable workflow written f
 
 A `stdio` server runs locally, so the first start may need network access to fetch its package; later starts use the local cache.
 
+**Filling tips**: for type `stdio`, the "Command" field takes a local command (e.g. `npx -y some-mcp-server`), not a URL; for type `streamable_http`, the "Endpoint" field takes an address starting with `http://` or `https://`. Mismatched shapes are blocked by the form with an inline hint — pasting a URL into the command field would otherwise fail at launch with a cryptic "os error 123".
+
 ## Manage the list
 
 - Turn an extension off in the list to keep it out of new sessions; its configuration stays.
@@ -38,3 +40,7 @@ Server implementations are published by their own authors: community projects, v
 ## Permissions
 
 ChengYoung asks for approval when a tool call needs to do something sensitive. Read the approval dialog the first time you use an extension, and keep only the extensions you are actively using enabled.
+
+## Skills & extensions directory
+
+Not sure what to install? The "Skills & Extensions" page on our website (chengyoung.com/extensions/) lists human-verified third-party extensions, each with install steps, required permissions, credentials and data-flow disclosures. A "Compatibility tested" badge means install and tool-call testing was completed at a stated version and environment (it is not a security audit).
