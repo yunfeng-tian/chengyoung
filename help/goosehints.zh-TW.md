@@ -1,33 +1,36 @@
-# 使用專案提示（.goosehints）
+# 使用專案提示（.cyhints）
 
-`.goosehints` 是一個純文字檔案，用來把專案慣例、建置指令與注意事項寫進上下文，讓 ChengYoung 少問、少猜、少跑偏。
+`.cyhints` 是一個純文字檔案，用來把專案慣例、建置指令與注意事項寫進上下文，讓 ChengYoung 少問、少猜、少跑偏。
 
 ## 兩類提示檔案
 
 | 類型 | 位置 | 生效範圍 |
 | --- | --- | --- |
-| 全域提示 | 設定目錄下的 `.goosehints` | 所有工作階段 |
-| 專案提示 | 工作階段工作目錄及其上層目錄中的 `.goosehints`，例如專案根目錄下的 `.goosehints` | 該目錄樹內的工作階段 |
+| 全域提示 | 設定目錄下的 `.cyhints` | 所有工作階段 |
+| 專案提示 | 工作階段工作目錄及其上層目錄中的 `.cyhints`，例如專案根目錄下的 `.cyhints` | 該目錄樹內的工作階段 |
 
 設定目錄的位置：
 
 | 平台 | 路徑 |
 | --- | --- |
-| Linux / macOS | `~/.config/goose/` |
-| Windows | `%APPDATA%\Block\goose\config\` |
+| Windows | `%APPDATA%\ChengYoung\agent\config\` |
+| macOS | `~/Library/Application Support/ChengYoung/agent/config/` |
+| Linux | `$XDG_CONFIG_HOME/ChengYoung/agent/config/`（未設定則為 `~/.config/ChengYoung/agent/config/`） |
 | 自訂根目錄 | 設定環境變數 `GOOSE_PATH_ROOT` 後，設定目錄為 `<GOOSE_PATH_ROOT>/config/` |
 
-目錄名稱沿用上游 `Block/goose` 命名，以保持既有設定與資料的相容性。
+工作階段與設定都放在 ChengYoung 自己的資料目錄裡（核心子目錄 `agent`，與應用程式的設定、日誌同根），**與上游同名產品（`Block/goose`）並裝互不影響**。
+
+1.13.0 起，首次啟動會把舊版本（≤1.12.0，原先位於 `%APPDATA%\Block\goose\`）的資料自動**複製**過來；舊目錄保留不動，你可以自行刪除。
 
 ## 載入順序
 
-1. **全域提示**：先載入設定目錄下的 `.goosehints`，對所有專案生效。
+1. **全域提示**：先載入設定目錄下的 `.cyhints`，對所有專案生效。
 2. **專案提示**：再依 git 根目錄 → 工作階段工作目錄的順序逐層載入，越靠近目前目錄的內容排在越後面。
-3. **子目錄提示**：工作階段進行中，當 ChengYoung 讀寫檔案或執行命令觸及更深目錄時，該目錄的 `.goosehints` 會被增量附加。
+3. **子目錄提示**：工作階段進行中，當 ChengYoung 讀寫檔案或執行命令觸及更深目錄時，該目錄的 `.cyhints` 會被增量附加。
 
 ## 引用其他檔案
 
-在 `.goosehints` 中以 `@相對路徑` 引入其他檔案的內容，例如：
+在 `.cyhints` 中以 `@相對路徑` 引入其他檔案的內容，例如：
 
 ```text
 @README.md
@@ -38,7 +41,9 @@
 
 ## 與 AGENTS.md 的關係
 
-預設同時讀取 `AGENTS.md`（專案根目錄到工作階段工作目錄，以及使用者主目錄下的 `~/.agents/AGENTS.md`），可與 `.goosehints` 並存。
+預設同時讀取 `AGENTS.md`（專案根目錄到工作階段工作目錄，以及使用者主目錄下的 `~/.agents/AGENTS.md`），可與 `.cyhints` 並存。
+
+`.cyhints` 不存在時仍會讀取上游舊名 `.goosehints`，既有專案不必改名即可繼續使用；應用程式內編輯器寫入的**一律是** `.cyhints`。
 
 ## 讓修改生效
 
