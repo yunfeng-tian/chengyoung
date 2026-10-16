@@ -44,7 +44,7 @@ Worth knowing on the first run:
 - ChengYoung reads files and runs commands through tools, so the answer arrives as a chain of steps you can follow, not a single block of text.
 - Sensitive operations raise a permission dialog first. Read it, then approve or deny. **Settings → Chat** holds the approval mode if you would rather be asked less often.
 - Drop files onto the input to attach them to your next message.
-- A `.goosehints` file in a project — or a global one for every project — states your conventions and build commands once instead of in every prompt.
+- A `.cyhints` file in a project — or a global one for every project — states your conventions and build commands once instead of in every prompt.
 - You can stop a running turn at any time; the conversation keeps its history either way.
 
 ## 4. Add an extension when you need more reach
@@ -63,7 +63,7 @@ An extension acts with your authority, so keep only the ones you are using enabl
 | Want to | Open |
 | --- | --- |
 | Reuse a stored setup for a recurring task | Workflows |
-| Teach ChengYoung your conventions | Skills, or a `.goosehints` file |
+| Teach ChengYoung your conventions | Skills, or a `.cyhints` file |
 | Run something on a schedule | Scheduler |
 | Reopen an earlier conversation | Session History |
 | Change language, theme, updates or privacy options | Settings → App |
