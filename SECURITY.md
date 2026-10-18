@@ -16,14 +16,15 @@ ChengYoung 是运行在你自己电脑上的桌面 AI 智能体（Agent）。与
 如果你发现 ChengYoung 的安全漏洞，请**私密**报告，**不要公开披露**：
 
 - **邮件 / Email**：**support@chengyoung.com**（建议使用 TLS 加密传输）
-- 请在邮件中描述：受影响版本、漏洞类型、复现步骤（可选：应用内「设置 → 关于与帮助」复制诊断信息，**发送前请确认不含敏感个人数据**）。
+- 请在邮件中描述：受影响版本、漏洞类型、复现步骤。
+- 如需附诊断信息：请使用应用内「**设置 → App → 帮助与反馈 → 复制系统信息**」——它**不包含会话内容**。完整诊断 JSON 包含会话消息、日志与配置文件原文，**仅在你确认已删除其中的对话内容与任何 Key 类字符串后**才建议附上。
 
 我们承诺在收到报告后 **72 小时内**进行初步响应与评估，并在修复后与报告者协商公开披露时机（协调披露 / Coordinated Disclosure）。
 
 ## 平台 / Platform
 
 - Windows 10 / 11（x64）
-- 相关说明见仓库 [README](README.md) 与 [隐私说明](PRIVACY.public.md)。
+- 相关说明见仓库 [README](README.md) 与 [隐私说明](PRIVACY.md)。
 
 ---
 
@@ -45,12 +46,12 @@ This is a desktop AI Agent running on your own machine. Unlike chat-only models,
 If you find a security vulnerability in ChengYoung, please report it **privately** — do not disclose it publicly.
 
 - **Email**: **support@chengyoung.com** (please use TLS-encrypted transport)
-- Please include the affected version, vulnerability type, and reproduction steps (optionally, copy the diagnostic report from *Settings → About & help*; **please verify it contains no sensitive personal data before sending**).
+- Please include the affected version, vulnerability type, and reproduction steps.
+- If diagnostic information is needed: use in-app **Settings → App → Help & feedback → Copy system info** — it contains **no conversation content**. A full diagnostic JSON includes the current conversation, logs, and your raw config file — attach it only after you have confirmed that conversation content and any key-like strings have been removed.
 
 We commit to an initial response and evaluation **within 72 hours** of receipt, and will coordinate public disclosure timing with the reporter (coordinated disclosure).
 
 ### Platform
 
-- Windows 10 / 11 (x64)
-- See the repository [README](README.md) and [Privacy Policy](PRIVACY.public.md) for details.
-
+- Windows 10 / 11（x64）
+- See the repository [README](README.md) and [privacy statement](PRIVACY.md) for details.
