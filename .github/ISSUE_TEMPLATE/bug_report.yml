@@ -1,0 +1,80 @@
+name: 🐞 缺陷报告 / Bug report
+description: 报告 ChengYoung 的缺陷（公开区域，请先阅读隐私提醒）
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ **此处为公开区域，提交后将长期可搜索**：请勿粘贴 API Key、密码、完整文件路径或对话原文。
+        涉及具体会话的诊断 JSON，公开前请先自查敏感词（`key` / `token` / `password` / `Bearer` / `Users`）。
+  - type: input
+    id: version
+    attributes:
+      label: ChengYoung 版本 / Version
+      description: 设置 → 版本 中可见
+      placeholder: 例如 1.21.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统 / OS
+      options:
+        - Windows 11
+        - Windows 10
+        - 其它 / Other
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题分类 / Area
+      options:
+        - 界面与交互 / UI & interaction
+        - 模型与推理 / Models & inference
+        - 工具与扩展 / Tools & extensions
+        - 更新 / Update
+        - 其它 / Other
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤与期望 / 实际行为 / Steps to reproduce, expected vs actual
+      description: 按步骤列出；如涉具体对话，请隐去敏感内容
+      placeholder: |
+        1. 打开…
+        2. 点击…
+        期望：…
+        实际：…
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: 模型与提供商（可选）/ Model & provider (optional)
+      description: 例如 deepseek-flash / 本地 Qwen2.5-7B
+    validations:
+      required: false
+  - type: textarea
+    id: system-info
+    attributes:
+      label: 系统信息 / System info
+      description: 「设置 → App → 帮助与反馈 → 复制系统信息」的内容（不含会话内容，可放心粘贴）
+    validations:
+      required: false
+  - type: textarea
+    id: diagnostic-json
+    attributes:
+      label: 诊断 JSON（可选，公开前必须自查）/ Diagnostic JSON (optional, self-check before posting)
+      description: 聊天输入框旁的虫子图标导出。⚠️ 包含当前会话消息与配置原文——先搜索 `key` / `token` / `password` / `Bearer` / `Users` 并删除敏感内容；也可提交后在评论区拖入该文件
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy-check
+    attributes:
+      label: 隐私自查 / Privacy self-check
+      options:
+        - label: 我确认以上内容不含 API Key、密码或不想公开的对话原文 / I confirm nothing sensitive is included
+    validations:
+      required: true
