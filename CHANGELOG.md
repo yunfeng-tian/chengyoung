@@ -4,6 +4,74 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.21.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.21.0) — 2026-10-18
+
+> **行为变化**：当你关闭 ChengYoung 时，此前已在后台下载完成的更新会在退出过程中自动安装（静默、不重启应用）——下次启动即是新版本；不希望自动安装的，请在更新下载完成前不要关闭应用，或在设置中关闭自动下载。另外，长上下文模型的自动压缩触发点现在会明确显示在上下文条上（例如「上限 225k」），并且可以直接点击修改该上限。
+
+### 新增
+
+- **错误卡片与一键重试**：请求失败（断网、服务商故障等）不再以普通文字混入对话，而是显示一张红色错误卡片——说明失败原因（按错误类型给出中文提示）、保留技术详情，并提供「重试」按钮：重试会**从失败点继续**（已完成的工具结果保留、不会重复执行任何操作），也可选择「取消」保留错误记录。
+- **长上下文「回到底部」按钮**：浏览超长对话时，离开底部即显示圆形按钮，一键回到最新消息。
+- **上下文条显示压缩触发点**：对超大上下文模型（如 1M 窗口），自动压缩的触发点按服务商缓存折扣规则可能早于你设置的比例——现在上下文条会显示实际生效的触发点（如「上限 225k」），并支持点击修改该上限。
+- **新对话发送过渡更柔和**：发送首条消息后的等待画面改为半透明毛玻璃效果，并分步显示进度，不再出现假死现象。
+- **网关调试端点**（面向开发者）：设置 `CY_GATEWAY_DEBUG=1` 启动时，网关提供 `POST /debug/level` 运行时调整调试级别；审计数据新增 90 天自动清理。
+
+### 变更
+
+- **隐私面板文案全面修订**：更正了插件联网的表述（插件的 MCP 服务器与 hooks 和任何本机程序一样可以访问网络）、区分「消息发模型 / 工具调用发扩展」两条通道、补充更新检查的常规连接信息与浏览器本地缓存的说明——所有表述与实际行为一一对应。
+- **费用提示口径更清晰**：悬停费用时，总额标注为「提供商实付」（含缓存折扣），token 数单独列出，不再并列一笔按目录价估算、与实付对不上的金额。
+- **通知点击更可靠**：任务完成通知点击后可靠地还原并聚焦主窗口（此前最小化时可能无响应）。
+- **压缩过程文案中文化**：长对话压缩时的状态提示与相关授权文案改为随界面语言显示。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 修复
+
+- **界面品牌遗漏**：修复长对话压缩与部分 OAuth 授权流程中仍显示上游项目名的问题。
+- **求助会话恢复后无法解锁工具**：跨重启恢复的只读诊断会话，「只读」横标现在会正确显示（此前不显示导致无法切回修复模式）。
+- **诊断会话徽标跨重启恢复**后正确驱动模式开关（同上，属同一条修复链）。
+
+### 安全
+
+- **遥测边界技术化**：启动模型进程时显式清除继承自系统的 `OTEL_*` / `LANGFUSE_*` / 决策器实验类环境变量——「不含任何遥测」从环境约定升级为技术保证。
+- **构建链加固**：模型进程产物在打包时强制通过字节级禁串检查（不含任何上报域名）；上游若引入外部决策器实验会被构建门禁直接拦截。
+- 本版本不采集、不上传任何使用数据的承诺不变（详见应用内「隐私详情」）。
+
+> **Behavior change**: when you close ChengYoung, an update that has already been downloaded in the background is now installed silently during exit (no relaunch) — the next launch runs the new version. To avoid auto-install, don't close the app while an update is downloading, or turn off automatic downloads in Settings. Long-context models now show the effective auto-compaction trigger on the context bar (e.g. "cap 225k"), clickable to edit that cap.
+
+### Added
+
+- **Error card with one-click retry**: failed requests (network, provider outages) now show a red error card instead of blending into the conversation — with a plain-language explanation of the failure, technical details preserved, and a **Retry** button that **resumes from the point of failure** (completed tool results are kept and nothing is re-executed); you can also dismiss and keep the error as history.
+- **Back-to-bottom button**: when scrolling away from the bottom of a long conversation, a round button appears for one-click return to the latest message.
+- **Compaction trigger on the context bar**: for very large-context models (e.g. 1M), the effective auto-compaction trigger may be earlier than your configured ratio due to provider cache discounts — the context bar now shows the effective trigger (e.g. "cap 225k") and lets you edit that cap.
+- **Softer new-chat transition**: the waiting screen after sending the first message now uses a translucent frosted glass effect with step-by-step progress, instead of a frozen-looking pause.
+- **Gateway debug endpoint** (developer-facing): with `CY_GATEWAY_DEBUG=1`, the gateway serves `POST /debug/level` for runtime debug-level changes; audit data now auto-purges after 90 days.
+
+### Changed
+
+- **Privacy panel copy fully revised**: the plugin networking wording is corrected (a plugin's MCP servers and hooks can reach the network like any other program), the "messages to the model" and "tool calls to extensions" channels are separated, and details about the routine connection metadata of update checks and about browser local caching are added — every statement now maps to actual behavior.
+- **Clearer cost tooltip**: the total is now labeled "as billed by the provider" (including cache discounts), with token counts listed separately — no longer side by side with a list-price estimate that doesn't add up to the billed total.
+- **More reliable notification focus**: clicking the task-completion toast now reliably restores and focuses the main window (previously unresponsive when minimized).
+- **Localized compaction copy**: the status text during long-conversation compaction and related authorization copy now follow the interface language.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Fixed
+
+- **Upstream branding leaks**: fixed lingering upstream project names during long-conversation compaction and parts of the OAuth flow.
+- **Help sessions unlockable after restart**: the read-only banner on a restored diagnostic session now appears correctly, so you can switch back to fix mode.
+- **Mode badge on restored diagnostic sessions**: the badge now correctly drives the mode switch after a restart (same fix chain as above).
+
+### Security
+
+- **Telemetry boundary made technical**: inherited `OTEL_*` / `LANGFUSE_*` / decision-provider experiment variables are explicitly stripped when the model process starts — "no telemetry" is now a technical guarantee rather than an environment convention.
+- **Build chain hardened**: the model-process artifact must pass a byte-level forbidden-string scan at packaging (verifying no reporting domains); an upstream decision-provider experiment would be blocked by the build gate.
+- The promise of no collection and no upload of any usage data is unchanged (see in-app "Privacy details").
+
 ## [1.20.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.20.0) — 2026-10-17
 
 > **行为变化**：听写设置不再提供「使用对话模型直接转写音频」的选项（该方式需要支持音频输入的模型，普通文本模型会转写失败）——已配置该方式的会话会自动切回「禁用」，请改用本地模型或云端转写服务。另外，输入框工具区已重新布局：添加文件 / 图片的入口移至左下角「+」菜单，麦克风按钮移至发送按钮旁。
