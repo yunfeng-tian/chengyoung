@@ -91,10 +91,11 @@ certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 
 ## 反馈
 
-- 问题与建议：本仓库的 [Issues](https://github.com/yunfeng-tian/chengyoung/issues)
+- 问题与建议：本仓库的 [Issues](https://github.com/yunfeng-tian/chengyoung/issues)（报障请用缺陷报告表单）
+- 使用交流与功能建议：[Discussions](https://github.com/yunfeng-tian/chengyoung/discussions)
 - 网站：https://chengyoung.com
-- 邮件支持：**support@chengyoung.com**
-- 应用内「设置 → 关于 ChengYoung」可一键复制诊断信息（粘贴至 Issue 或邮件中，以便更快定位问题）
+- 邮件支持：**support@chengyoung.com**（主题加 [ChengYoung] 前缀便于分流）
+- 应用内「设置 → App → 帮助与反馈」可一键**复制系统信息**（不含会话内容；粘贴至 Issue 或邮件中，以便更快定位问题）
 
 ## 许可与来源
 
