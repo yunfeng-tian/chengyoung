@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❓ 使用问答 / Q&A (Discussions)
+    url: https://github.com/yunfeng-tian/chengyoung/discussions/q-a
+    about: 使用问题互助——先看置顶规则与文档
+  - name: 💡 功能建议 / Feature requests (Discussions)
+    url: https://github.com/yunfeng-tian/chengyoung/discussions/ideas
+    about: 说明使用场景与期望效果
+  - name: 📧 邮件反馈 / Email support
+    url: mailto:support@chengyoung.com?subject=%5BChengYoung%5D
+    about: 与 GitHub 渠道等效，任选其一（主题会自动带上 [ChengYoung] 前缀）
+  - name: 🔒 安全漏洞 / Security vulnerability
+    url: https://github.com/yunfeng-tian/chengyoung/blob/main/SECURITY.md
+    about: 请勿公开披露——按 SECURITY.md 的私密流程报告
