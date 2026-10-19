@@ -4,6 +4,74 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.22.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.22.0) — 2026-10-20
+
+> **新增「用量与费用」页**：所有对话的 Token 与费用统计在一处看全——本月用了多少、哪个模型花得最多、每天的趋势如何。入口在侧栏「更多」分组，也可以直接点击对话底部的费用条跳转（自动定位到该对话）。所有统计只保存在本机。
+
+### 新增
+
+- **用量与费用页**：
+  - 总费用与 Token 总量，支持本月 / 近 30 天 / 近 90 天 / 全部时间四档切换；
+  - 按模型统计表：每个模型的费用、输入 / 输出 / 缓存 Token 与请求次数；
+  - 趋势图：按日堆叠柱状图，区分「提供商实付」与「按目录价估算」两段；
+  - 排行视图：按费用 / 按 Token 两个口径，可按模型或按日期切换；
+  - 计价状态一目了然：每笔统计带「提供商实付 / 按目录价估算 / 自托管（不计费）/ 暂不可计价 / 未归属」徽标，费用数字旁边会说明口径（例如估算包含系统提示、工具定义与历史记录的输入 Token）；
+  - 从对话底部的费用条点击直达，并自动筛选到该会话；窗口较窄时自动切换为适合的紧凑布局。
+- 上述界面文案覆盖全部 16 种语言。
+
+### 变更
+
+- **统计更耐久**：费用与模型信息在对话发生时即以价格快照记录——之后模型价格调整不会改写历史统计；
+- **删除对话保留统计**：删除对话不再连带删除其用量记录（历史统计完整保留，仅解除与该对话的关联）；
+- **消息 Token 数更易查看**：消息下方的 Token 数徽标改为常驻低对比度显示（此前仅悬停才出现），悬停展开的明细浮层适配深色主题；
+- **下拉风格统一**：时间范围下拉框与全局组件风格一致（含深色模式的下拉弹层）。
+
+### 修复
+
+- **应用内更新偶发安装失败**：修复更新安装时偶发的「Error opening file for writing」——安装等待时间加长，并在拉起安装器前清理残留进程；
+- **新对话输入框残留**：点击「新对话」返回首页时，输入框不再残留上一个问题的全文。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 本版本不采集、不上传任何使用数据的承诺不变；「用量与费用」页的全部数据保存在本机设备上（详见应用内「隐私详情」）。
+
+> **New: the usage & cost page** — all of your conversations' token and cost statistics in one place: how much this month, which model costs the most, and how usage trends day by day. Find it in the "More" group of the sidebar, or click the cost bar at the bottom of a conversation to jump there (scoped to that conversation). All statistics are stored locally.
+
+### Added
+
+- **Usage & cost page**:
+  - total cost and token usage with four time ranges: this month / last 30 days / last 90 days / all time;
+  - per-model table: cost, input / output / cache tokens, and request count for each model;
+  - trend chart: daily stacked bars separating "billed by the provider" from "estimated at list price";
+  - ranking view: switch between cost and tokens, grouped by model or by day;
+  - pricing status at a glance: every figure carries a badge — "billed by provider / estimated at list price / self-hosted (no charge) / not yet priceable / unattributed" — and the cost figure explains its basis (e.g. estimates include input tokens from the system prompt, tool definitions, and conversation history);
+  - click the cost bar at the bottom of a conversation to jump in with that session pre-selected; the layout adapts automatically when the window is narrow.
+- All of the above copy ships in all 16 languages.
+
+### Changed
+
+- **Statistics are more durable**: cost and model info are recorded as a price snapshot at conversation time — later price changes never rewrite historical statistics;
+- **Deleting a conversation keeps its statistics**: deleting a conversation no longer deletes its usage records (history is fully preserved; only the link to that conversation is removed);
+- **Message token counts easier to see**: the token badge under a message is now always visible at low contrast (previously it only appeared on hover), and the hover detail popover now matches the dark theme;
+- **Consistent dropdown style**: the time-range dropdown now matches the global component style (including its dark-mode popover).
+
+### Fixed
+
+- **Occasional in-app update install failures**: fixed the intermittent "Error opening file for writing" during update installation — the delay before launching the installer has been increased, and leftover processes are cleaned up first;
+- **Leftover text in the input box on new chat**: returning to the home screen via "New chat" no longer leaves the previous question's full text in the input box.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- The promise of no collection and no upload of any usage data is unchanged; everything on the usage & cost page is stored on your device (see in-app "Privacy details").
+
 ## [1.21.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.21.0) — 2026-10-18
 
 > **行为变化**：当你关闭 ChengYoung 时，此前已在后台下载完成的更新会在退出过程中自动安装（静默、不重启应用）——下次启动即是新版本；不希望自动安装的，请在更新下载完成前不要关闭应用，或在设置中关闭自动下载。另外，长上下文模型的自动压缩触发点现在会明确显示在上下文条上（例如「上限 225k」），并且可以直接点击修改该上限。
