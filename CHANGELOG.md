@@ -4,6 +4,70 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.23.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.23.0) — 2026-10-21
+
+> **新增「截屏提问」**：在任何应用里按 Ctrl+Alt+A，框选屏幕任意区域，截图直接进入输入框——配合「提取文字 / 翻译 / 解题」三个一键指令，把看到的内容立刻交给 AI 处理。截图全程只在本机内存中处理，不保存文件、不上传。
+
+### 新增
+
+- **截屏提问**：
+  - 全局快捷键 Ctrl+Alt+A：无需切回应用，任何界面下直接发起截屏（可在「设置 → 快捷键」中改键或禁用，改键即时生效）；
+  - 全屏快照上直接框选：八方向手柄精调、选区内拖动移位、工具条跟随选区位置；
+  - 三个一键指令：**提取文字 / 翻译 / 解题**——确认选区后自动填入对应指令，截图与问题一起发送；
+  - 输入框「+」菜单同步提供「截屏提问」入口；
+  - 隐私：截图只在内存中临时处理，不保存到磁盘、不上传任何内容，应用关闭即消失。
+- **拖拽文件到输入框**：把文件直接拖进对话窗口即可添加（此前只能通过「+」菜单选择）。
+- **图片数量上限提示**：单条消息最多 10 张图片，超出时不再静默丢弃，而是明确提示。
+- 上述界面文案覆盖全部 16 种语言。
+
+### 变更
+
+- **会话启动等待更有反馈**：首次对话的启动等待超过 1.5 秒时，会显示「正在准备模型」的第二阶段提示，不再出现假死现象；启动等待画面为半透明毛玻璃，首页隐约可见；
+- **侧栏分组更易辨认**：当前页面所在的侧栏分组，组头会显示高亮竖条。
+
+### 修复
+
+- **通知中心空态过高**：没有通知时，通知面板不再多占一块空白（此前会挡住输入框右侧）。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 本版本不采集、不上传任何使用数据的承诺不变；「截屏提问」的截图内容只在本机内存中临时存在，不写入磁盘、不经过网络上传（详见应用内「隐私详情」）。
+
+> **New: Screenshot Ask** — press Ctrl+Alt+A in any app, select any region of your screen, and the screenshot goes straight into the chat input — combined with three one-tap prompts (**Extract text / Translate / Solve**) to hand what you see to the AI instantly. Screenshots are processed in memory only: nothing is saved to disk, nothing is uploaded.
+
+### Added
+
+- **Screenshot Ask**:
+  - global shortcut Ctrl+Alt+A: start a capture from anywhere without switching apps (remappable or can be disabled in Settings → Shortcuts, effective immediately);
+  - select directly on a full-screen snapshot: 8-way adjustment handles, drag-to-move inside the selection, and a toolbar that follows the selection;
+  - three one-tap prompts: **Extract text / Translate / Solve** — confirming the selection fills in the matching instruction automatically and sends both the screenshot and your question;
+  - a "Screenshot Ask" entry in the input box "+" menu;
+  - privacy: screenshots live in memory only — never written to disk, never uploaded, gone when the app closes.
+- **Drag files into the input box**: drop files straight onto the conversation window to attach them (previously only via the "+" menu).
+- **Image limit feedback**: when the 10-images-per-message limit is reached, you now get a clear notice instead of silently dropping them.
+- All of the above copy ships in all 16 languages.
+
+### Changed
+
+- **Better feedback while a session starts**: if the first conversation takes longer than 1.5 seconds to start, a second-stage hint appears ("preparing the model") so it no longer appears frozen; the waiting overlay is now a translucent frosted glass with the home page faintly visible;
+- **Sidebar groups easier to tell apart**: the group containing the current page shows a highlighted bar on its header.
+
+### Fixed
+
+- **Notification panel empty state**: the panel no longer reserves an oversized blank area when there are no notifications (it previously could cover the right side of the input box).
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- The commitment of no telemetry and no data collection is unchanged; Screenshot Ask content exists temporarily in memory only — never written to disk, never sent over the network (see in-app "Privacy details").
+
 ## [1.22.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.22.0) — 2026-10-20
 
 > **新增「用量与费用」页**：所有对话的 Token 与费用统计在一处看全——本月用了多少、哪个模型花得最多、每天的趋势如何。入口在侧栏「更多」分组，也可以直接点击对话底部的费用条跳转（自动定位到该对话）。所有统计只保存在本机。
