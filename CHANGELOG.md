@@ -4,6 +4,68 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.24.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.24.0) — 2026-10-23
+
+> **截屏体验全面升级 + 本地推理性能修复**：截屏选区新增变暗遮罩与实时尺寸标注、支持方向键微调与双击确认；多屏场景下覆盖窗跟随触发来源、截屏进行中再按热键即可在当前屏幕重新开始。本地推理修复了模型被错误分配到 CPU 或集成显卡的问题——独立显卡全量接管后，推理速度最高提升数倍，偶发空回复的问题也已根治；默认推荐模型（Gemma-4-E4B）的工具调用可靠性已通过全量场景验证。
+
+### 新增
+
+- **截屏选区体验**：
+  - 选区外变暗遮罩：一眼看清截取范围（此前选区内外亮度相同，只能靠细边框辨认）；
+  - 选区尺寸实时标注：拖动与调整手柄时实时显示 宽 × 高；
+  - 方向键微调：±1 像素，按住 Shift 为 ±10 像素；
+  - 双击选区即可确认截图（与主流截图工具的操作习惯一致）。
+- **截屏换屏重开**：截屏进行中再次按 Ctrl+Alt+A，会取消当前选区并以光标所在屏幕重新开始——多屏下选错屏幕时，不必再回到原屏幕取消后重来。
+
+### 变更
+
+- 本版本没有对既有行为的调整；截屏换屏重开（见「新增」）是全新的交互，不改变任何既有快捷键的行为。
+
+### 修复
+
+- **截屏覆盖窗跟随触发来源**：修复双屏扩展模式下覆盖窗固定开在主屏、导致另一侧屏幕无法截屏的问题——快捷键发起时出现在光标所在屏幕，输入框「+」菜单发起时出现在发起窗口所在屏幕。
+- **本地推理性能：模型不再全部落在 CPU 上运行**：修复本地模型在部分机器上全部层都在 CPU 运行的问题——修复后模型完整驻留独立显卡，推理速度提升可达数倍。
+- **本地推理：混合显卡场景下模型不再错分到集成显卡**：双显卡（独立 + 集成）机器上，模型层此前可能被拆分到集成显卡导致速度骤降，现在固定驻留性能更强的独立显卡。
+- **本地推理：偶发空回复已根治**：本地模型偶尔返回空内容的问题已修复。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 本版本不采集、不上传任何使用数据的承诺不变；截屏功能的截图内容仍只在本机内存中临时存在，不写入磁盘、不经过网络上传（详见应用内「隐私详情」）。
+
+> **Screenshot UX overhaul + local inference performance fixes** — the selection overlay now dims the area outside the selection and shows a live W×H size label, with arrow-key nudging and double-click to confirm; on multi-monitor setups the capture window follows the triggering source, and pressing the hotkey again mid-session restarts the capture on the screen under your cursor. Local inference no longer misplaces the model on the CPU or the integrated GPU — with the discrete GPU fully utilized, inference is up to several times faster, and the occasional empty-reply issue is permanently fixed. The default recommended model (Gemma-4-E4B) has passed full tool-calling validation.
+
+### Added
+
+- **Screenshot selection experience**:
+  - Dimmed overlay outside the selection: the captured area is obvious at a glance (previously both areas had identical brightness, distinguishable only by a thin border);
+  - Live size label: shows width × height while dragging or adjusting the handles;
+  - Arrow-key nudging: ±1 pixel, hold Shift for ±10 pixels;
+  - Double-click inside the selection to confirm (consistent with mainstream screenshot tools).
+- **Restart capture on another screen**: pressing Ctrl+Alt+A again while a capture session is active cancels the current selection and restarts on the screen under your cursor — no need to go back to the original screen to cancel first.
+
+### Changed
+
+- No changes to existing behavior in this release; the mid-session restart (see "Added") is an entirely new interaction and does not alter any existing shortcut behavior.
+
+### Fixed
+
+- **Capture window follows the triggering source**: fixed an issue where, on extended dual-monitor setups, the capture window always opened on the primary screen and left the other screen unusable — it now appears on the screen where the hotkey was pressed, or on the screen of the originating window when started from the "+" menu.
+- **Local inference performance: the model no longer runs entirely on the CPU**: fixed an issue where, on some machines, all model layers were placed on the CPU — the model now resides fully on the discrete GPU, with inference speed improved several times.
+- **Local inference: hybrid-GPU machines no longer spill onto the integrated GPU**: on dual-GPU (discrete + integrated) machines, model layers could previously be split onto the integrated GPU and slow inference to a crawl; they now stay on the faster discrete GPU.
+- **Local inference: occasional empty replies permanently fixed**: local models sometimes returned empty content; this has been fixed.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- Our commitment not to collect or upload any usage data is unchanged; screenshot content from the capture feature still exists only in local memory — never written to disk, never sent over the network (see in-app "Privacy details").
+
 ## [1.23.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.23.0) — 2026-10-21
 
 > **新增「截屏提问」**：在任何应用里按 Ctrl+Alt+A，框选屏幕任意区域，截图直接进入输入框——配合「提取文字 / 翻译 / 解题」三个一键指令，把看到的内容立刻交给 AI 处理。截图全程只在本机内存中处理，不保存文件、不上传。
