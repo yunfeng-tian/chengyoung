@@ -4,6 +4,68 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.25.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.25.0) — 2026-10-24
+
+> **模型选择更聪明：置顶、目录合并与自动刷新**：模型下拉新增 ⭐ 置顶——手动输入的模型 ID 自动置顶并优先展示，目录刷新也不再清除它们；模型清单改为「在线目录 + 本地保留」合并语义；清单过期时自动后台刷新，选择器不再被刷新卡住。另有一批下拉体验修复与火山引擎 Coding Plan 配置引导。
+
+### 新增
+
+- **模型置顶（⭐）**：
+  - 模型下拉的每一行都有星标：点击即可置顶 / 取消置顶，置顶项按置顶顺序排在「置顶」分组中；
+  - 手动输入的模型 ID 在确认后自动置顶——即使它不在提供商的在线目录里，也会一直出现在下拉中（合并语义保证刷新后仍可用）；
+  - 搜索时置顶组跟随过滤，与「全部」组使用同一套匹配规则；
+  - 置顶跨窗口同步，写失败自动回滚，不影响当前选择。
+- **火山引擎 Coding Plan 引导**：在「连接提供商」向导选择 `volcengine-coding-plan` 模板时会提示保持模型 ID 为 `ark-code-latest`（聚合入口，由火山引擎路由到实际模型，模型更新无需逐个改名）；快速开始文档与官网说明同步补充。
+
+### 变更
+
+- **模型清单合并语义**：提供商的在线模型清单刷新后，不再整体替换本地清单——在线目录在前、配置里保留的模型（含已下线条目）作为「本地保留」区追加在后；别名（如聚合入口 ID）不再因刷新而消失，从配置中删除的模型也不会复活。
+- **清单过期自动刷新**：打开模型选择器时先用现有清单立即渲染（不再等待）；清单过期或从未同步时在后台自动刷新并替换为最新结果——刷新失败只记录警告，不影响当前使用。
+- **刷新失败退避**：从未成功同步的提供商不再随每次会话创建反复请求在线清单（6 小时失败退避）；手动刷新与保存配置等显式动作始终立即刷新。
+- **内置模型过滤**：在线清单落库前自动排除嵌入 / 重排 / 语音类模型（ID 含 embed / rerank / tts / asr），它们对对话模型选择没有意义；手动配置与置顶的模型不受影响。
+
+### 修复
+
+- **下拉分组头样式**：修复「置顶 / 全部」分组头在 unstyled 下拉中丢失样式的问题。
+- **搜索与后台刷新不再互相打断**：后台刷新完成时若正在搜索，列表保持按搜索词过滤，不再回弹到全量。
+- **后台刷新失败不再清空列表**：刷新后重拉结果为空时保留已渲染的清单。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 本版本不采集、不上传任何使用数据的承诺不变；模型清单的在线刷新仅向您配置的提供商 API 发起请求，收藏数据只保存在本机设置中（详见应用内「隐私详情」）。
+
+> **Smarter model switching: pins, merged catalogs and auto-refresh** — the model dropdown gains ⭐ pins: hand-typed model IDs are pinned automatically and survive catalog refreshes; the model list now merges the online catalog with locally kept entries; a stale list refreshes in the background instead of blocking the picker. Also includes dropdown UX fixes and Volcengine Coding Plan setup guidance.
+
+### Added
+
+- **Model pins (⭐)**: every row in the model dropdown has a star — click to pin/unpin; pinned models are grouped first in pin order. Hand-typed model IDs are pinned on submit and keep appearing in the dropdown even when absent from the provider's online catalog (merge semantics keep them usable across refreshes). The pinned group follows search filtering using the same matching rules as the "All" group, and pins sync across windows with rollback on write failure, without affecting the current selection.
+- **Volcengine Coding Plan guidance**: the provider wizard now hints to keep `ark-code-latest` as the model ID for the `volcengine-coding-plan` template (an aggregated entry point routed by Volcengine); quickstart docs updated accordingly.
+
+### Changed
+
+- **Merged model catalog semantics**: refreshing a provider's online model list no longer replaces the local list — the online catalog comes first, models kept in your configuration (including offline ones) are appended as a locally-kept section; aliases survive refreshes and models removed from the configuration are not revived.
+- **Stale-while-revalidate catalog refresh**: opening the model picker renders the existing list immediately; a stale or never-synced list refreshes in the background and swaps in the fresh result — refresh failures only log a warning without affecting current usage.
+- **Refresh backoff**: providers that never synced successfully no longer re-request their online list on every session creation (6-hour backoff); explicit actions like manual refresh always refresh immediately.
+- **Built-in model filter**: embedding / reranking / speech models (IDs containing embed / rerank / tts / asr) are excluded from refreshed online lists; manually configured and pinned models are unaffected.
+
+### Fixed
+
+- **Dropdown group heading styles**: the "Pinned / All" group headings no longer lose their styling in the unstyled dropdown.
+- **Search and background refresh no longer fight**: when a background refresh lands mid-search, the list stays filtered by the current query instead of snapping back to the full catalog.
+- **A failed background refresh no longer empties the list**: an empty re-fetch keeps the already-rendered list.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- The no-collection, no-telemetry promise is unchanged; online catalog refreshes only talk to the provider APIs you configured, and pin data stays in local settings (see in-app "Privacy details").
+
 ## [1.24.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.24.0) — 2026-10-23
 
 > **截屏体验全面升级 + 本地推理性能修复**：截屏选区新增变暗遮罩与实时尺寸标注、支持方向键微调与双击确认；多屏场景下覆盖窗跟随触发来源、截屏进行中再按热键即可在当前屏幕重新开始。本地推理修复了模型被错误分配到 CPU 或集成显卡的问题——独立显卡全量接管后，推理速度最高提升数倍，偶发空回复的问题也已根治；默认推荐模型（Gemma-4-E4B）的工具调用可靠性已通过全量场景验证。
