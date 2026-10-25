@@ -4,6 +4,50 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.26.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.26.0) — 2026-10-25
+
+> **中文**：**本地记录更可靠、会话恢复更稳**——提供商密钥缺失时，会话历史改为「只读查看 + 修复引导」，不再整页报错；错误提示会明确指出缺少哪个密钥。自动压缩阈值输入更顺手（自由输入、保存时校验），并修复了阈值上限、编辑入口与范围校验三处不一致；用量页金额显示币种符号（$）。
+>
+> ⚠ **行为变化**：配置里已存放 `100%`（即 `GOOSE_AUTO_COMPACT_THRESHOLD: 1.0`）的用户，界面上现在会显示并保存为 99%。如需继续关闭自动压缩，请通过配置文件设置 `1.0`（界面开关将在后续版本评估提供）。
+
+### 修复
+
+- **用量页金额显示币种符号**：费用数字现在带 `$` 前缀（如 `$9.01`），与单条消息的口径一致，一眼可识别币种；
+- **提供商密钥缺失时，会话历史仍可只读查看**：此前若一个会话所用的提供商缺少 API 密钥，打开它只会看到整页报错。现在会显示完整的历史记录（只读），并在顶部横幅提供「重试」与「配置提供商」入口；错误提示会指出缺少的具体密钥名称（如 `CUSTOM_VOLCENGINE_ARK_CODING_PLAN_API_KEY`），照着配置即可恢复对话；
+- **自动压缩阈值的三处修正**：
+  - 阈值输入框改为自由输入 + 明确的 −/+ 按钮（按住 Shift 大步调整），不再受难以点击的步进箭头和滚动滚轮意外修改的困扰；保存时校验范围（1–99%）；
+  - 上限从 100% 收紧到 **99%**：此前输入 100% 会被引擎解释为「关闭自动压缩」，但界面上没有任何提示（与设置页的上限对齐）；行为变化见顶部标注；
+  - 压缩条上的 token 上限徽章（上限 225k）在上下文条较窄或优先显示百分比时不再消失——它始终是进入「自动压缩 token 上限」编辑的入口，调大后也可一键恢复原值。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 无（本版本不含安全修复）。
+
+> **English**: **More reliable local history and steadier session resume** — when a session's provider is missing its API key, the history now opens with the full conversation visible in read-only mode plus a fix-it banner, instead of a full-page error; the error names the exact missing key. Auto-compact threshold editing is smoother (free-form input validated on save) with three consistency fixes; usage page amounts now show the currency symbol ($).
+>
+> ⚠ **Behavior change**: users with `100%` stored in their configuration (`GOOSE_AUTO_COMPACT_THRESHOLD: 1.0`) will now see and save 99% in the UI. To keep auto-compaction disabled, set `1.0` in the config file (an in-app toggle is under evaluation for a future release).
+
+### Fixed
+
+- **Usage page amounts now show the currency symbol** (e.g. `$9.01`), consistent with per-message usage stats, so the currency is obvious at a glance;
+- **Conversation history remains viewable when a provider key is missing**: sessions whose provider lacks its API key used to show a full-page error. They now show the full history in read-only mode, with a banner offering "Retry" and "Configure provider"; the error names the exact missing key (e.g. `CUSTOM_VOLCENGINE_ARK_CODING_PLAN_API_KEY`) — configure it and the conversation becomes available again;
+- **Three auto-compact threshold fixes**:
+  - the threshold field is now free-form input with explicit −/+ buttons (hold Shift for larger steps) instead of hard-to-click spinner arrows or accidental scroll-wheel changes; the range (1–99%) is validated on save;
+  - the cap is tightened from 100% to **99%**: entering 100% used to be silently interpreted as "auto-compact off" by the engine, with no hint in the UI (now aligned with the Settings page cap); see the behavior change note at the top;
+  - the token-limit badge (cap 225k) on the context bar no longer disappears when the bar is too narrow or when the percentage takes precedence — it is always the entry point for editing the auto-compaction token cap, and you can restore the previous value with one click after raising it.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- None (no security fixes in this release).
+
 ## [1.25.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.25.0) — 2026-10-24
 
 > **模型选择更聪明：置顶、目录合并与自动刷新**：模型下拉新增 ⭐ 置顶——手动输入的模型 ID 自动置顶并优先展示，目录刷新也不再清除它们；模型清单改为「在线目录 + 本地保留」合并语义；清单过期时自动后台刷新，选择器不再被刷新卡住。另有一批下拉体验修复与火山引擎 Coding Plan 配置引导。
