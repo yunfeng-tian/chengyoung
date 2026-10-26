@@ -4,6 +4,72 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.27.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.27.0) — 2026-10-26
+
+> **中文**：**本地模型更可控、界面更可达**——模型清单可隐藏/恢复不常用模型；置顶支持键盘操作；本地听写可选转写语言；对话字体大小四档可调；被其它应用占用的全局热键会在设置中明确提示。同时修复了一批界面文字颜色不生效的问题与快速启动器的多处交互缺陷。
+>
+> ⚠ **行为变化**：快速启动器（600×80 小窗）输入框的右键菜单改为**系统原生菜单**——此前的自绘菜单在小窗口中被截断不可用，原菜单的「粘贴」功能由输入行右侧的粘贴按钮承担；另外，界面**次要文字（时间戳、计数、说明行等）整体会比此前略浅**（改为次要灰色——设计如此，非故障）。
+
+### 新增
+
+- **隐藏不常用的模型（可恢复）**：切换模型清单中，不常用的模型可通过行内按钮隐藏（不再出现在列表中）；底部「已隐藏的模型」折叠条可随时一键恢复。已置顶的模型不受隐藏影响（置顶优先，置顶行不显示隐藏按钮）；
+- **置顶支持键盘**：模型菜单中按 `Ctrl+Enter`（macOS 为 `⌘+Enter`）可对当前高亮的模型切换置顶，与鼠标星标等效；
+- **本地听写转写语言**：设置 → 聊天 → 听写（Local）新增「转写语言」选择，默认**跟随界面语言**（首次打开听写设置时自动初始化，可在设置中更改）；
+- **对话字体大小**：设置 → 聊天新增四档（13/14/15/16px）——标题与列表等比缩放、层级不变，次要信息保持 12px；修改立即生效并跨窗口同步，默认 14px 与既往版本一致；
+- **全局热键状态可见**：全局快捷键被其它应用占用而无法注册时，设置 → 键盘快捷键会在对应键位行内明确提示，不再静默失效（**仅提示，不会自动改键**——请更换键位或关闭冲突应用）。
+
+### 修复
+
+- **次要文字颜色此前不生效，现已按层级显示**：时间戳、计数、说明行等次要文字此前引用了未定义的颜色变量、实际渲染与正文混同；现已对齐语义色，并在浅色/深色/暖色三套主题下重新校准（界面次要文字整体会比此前略浅——设计如此，非故障）；
+- **本地模型偶发命令尾多余 `$`**：本地小模型偶尔会把命令示例的 `$` 提示符带到命令末尾导致执行失败——已在命令解析层增加剥离兜底，并在系统提示词中约束命令格式（两份提示词保持一致并有防漂移检查）；
+- **本地模型大输出命令的约束**：系统提示词新增输出量约束（聚合/限量代替全量罗列），避免 `tree` 之类命令的大输出撑爆上下文触发自动压缩；
+- **快速启动器多处交互缺陷**：拖动把手失效、右键菜单被窗口截断（见顶部行为变化）、缺少粘贴按钮、高缩放屏下窗口落点偏右下、从主窗最小化状态唤出后「闪现即消失」——均已修复；
+- **压缩条编辑体验**：「token 上限」编辑态的控件顺序与百分比编辑态统一（保存按钮恒在最后）；上下文数字与上限徽章新增悬停说明，区分「模型上下文窗口」与「自动压缩上限」两个概念。
+
+### 变更
+
+- 本地模型设置中的「上下文大小」新增说明：超过模型训练上下文的取值会降低生成质量与速度，且修改仅对新会话生效（当前会话保持加载时的窗口大小）。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 无（本版本不含安全修复）。
+
+> **English**: **More control over local models and a more accessible UI** — hide/restore models in the switcher, pin via keyboard, choose the dictation transcription language (defaults to your interface language), four chat font sizes, and a clear in-app hint when a global shortcut is taken by another app (hint only — it won’t rebind keys for you). Also fixes secondary text (timestamps, counters, captions) that previously rendered in the primary text colour, and several quick-launcher interaction defects.
+>
+> ⚠ **Behavior change**: the quick launcher's right-click menu now uses the **native system menu** (the custom menu was truncated in the small window); paste moved to a dedicated button beside the input.
+
+### Added
+
+- **Hide models locally (restorable)**: hide rarely used models from the switcher; restore anytime from the "hidden models" section. Pinned models are exempt (pin wins over hide — pinned rows show no hide button);
+- **Keyboard pinning**: `Ctrl+Enter` (`⌘+Enter` on macOS) toggles the pin on the highlighted model in the menu;
+- **Dictation transcription language**: choose the transcription language for local dictation, **defaulting to your interface language** (initialized on first open; changeable in Settings);
+- **Chat font size**: four tiers (13/14/15/16px) — headings and lists scale proportionally, secondary details stay 12px; applies immediately and syncs across windows, default 14px unchanged;
+- **Global shortcut status**: when a global shortcut cannot be registered (taken by another app), Settings → Keyboard shortcuts says so on the exact row (hint only — it won’t rebind keys for you).
+
+### Fixed
+
+- **Secondary text (timestamps, counters, captions) now uses the intended muted colour** instead of falling back to the primary text colour, recalibrated across light/dark/aura themes (it is intentionally lighter than before);
+- **Stray trailing `$` in local-model commands**: parse-layer stripping plus prompt-level format constraints (both prompt copies kept in sync);
+- **Output-volume constraint for local models**: system prompt now asks for aggregation/limits instead of full dumps that could overflow the context window;
+- **Quick launcher**: fixed the broken drag handle, the truncated right-click menu (see behavior change), a missing paste button, a wrong window position on high-DPI displays, and the launcher vanishing right after being summoned from a minimized main window;
+- **Context bar editing**: the token-cap editor now matches the percentage editor, with Save always last; hover hints distinguishing the model context window from the auto-compact cap.
+
+### Changed
+
+- The local model settings' "context size" now explains that values above the model's trained context reduce quality/speed, and that changes apply to new sessions only.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- None (no security fixes in this release).
+
 ## [1.26.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.26.0) — 2026-10-25
 
 > **中文**：**本地记录更可靠、会话恢复更稳**——提供商密钥缺失时，会话历史改为「只读查看 + 修复引导」，不再整页报错；错误提示会明确指出缺少哪个密钥。自动压缩阈值输入更顺手（自由输入、保存时校验），并修复了阈值上限、编辑入口与范围校验三处不一致；用量页金额显示币种符号（$）。
