@@ -4,6 +4,72 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.28.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.28.0) — 2026-10-28
+
+> **中文**：**提供商密钥更可靠、更透明，回复滚动锚定更聪明**——修复了在多个提供商之间切换后已保存密钥偶发消失的问题（密钥写入现在有写入校验与并发保护）；「身份验证」页现在会列出全部已保存密钥（含自定义提供商）；切换到缺少密钥的模型会提前预警；密钥相关的错误信息全面本地化。同时改进长回复的滚动锚定，并为快速启动器与全局快捷键补齐多处细节。
+>
+> ⚠ **行为变化**：①把全局快捷键修改为**被其它应用占用**的组合时，会**自动回滚到原有快捷键**并在设置中标注（此前会落在「旧键失灵、新键无效」的状态）；②**其它应用**中新配置的 API 密钥**不再自动同步**到本应用（首次迁移已完成）——两边使用请分别配置。
+
+### 新增
+
+- **「身份验证」页列出全部提供商密钥（含自定义提供商）**：此前自定义提供商（如火山方舟 Coding Plan）的 API 密钥已保存但在页面中不可见，无法判断「密钥到底配没配」；现在全部密钥如实列出，每条均可删除；
+- **切换模型时的密钥预警**：切换到「需要 API 密钥但尚未配置」的模型时会立即提示（并指引到设置页），不再出现「提示切换成功、发送才失败」的误导；
+- **密钥缺失错误可读且可操作**：模型因缺少 API 密钥无法回复时，错误信息已本地化并附「配置提供商」入口（此前为英文技术信息且无指引）；
+- **空回复可见提示**：模型返回空内容（偶发的模型侧异常）时，会话中会显示「模型未返回内容」与重试指引，不再是空白一片；
+- **全局快捷键失败自动回滚**：把快捷键改为被其它应用占用的组合时，会自动恢复原有快捷键并在设置中标注「已回滚」——旧键不会失灵。
+
+### 修复
+
+- **切换提供商后密钥不再静默消失**：修复了在多个提供商（尤其是自定义提供商）之间切换后，已保存的 API 密钥偶发丢失的问题——根因是密钥存储的并发写入缺少互斥与写后校验；现在写入有并发保护、写后回读校验，异常时会明确报错而不是稍后静默失效；
+- **密钥删除后不再「复活」**：删除某条密钥后重启应用不会再被自动迁移机制搬回来；
+- **长回复的滚动锚定**：回复较长、屏幕只容得下开头时，回复完成会正确锚定到正文开头（此前被误判为「已在视口内」而停在原位，需要手动滚动）；
+- **快速启动器**：剪贴板粘贴失败时给出明确提示（此前静默无反馈）。
+- **取消置顶时恢复隐藏模型可见性**：取消置顶一个「已被本地隐藏」的模型时，会同步恢复其可见性，不再出现「取消置顶后模型凭空消失」的孤儿状态。
+
+### 变更
+
+- 快速启动器顶部拖动提示条的视觉高度由 12px 调整为 8px。
+
+### 移除
+
+- 本次发布没有移除既有功能。
+
+### 安全
+
+- 提供商密钥的写入增加**回读校验与回滚**（防止密钥静默丢失的存储层加固）；密钥**值**不会进入日志或诊断输出（仅记录键名与数量）。
+
+> **English**: **Provider keys are more reliable and visible, and scroll anchoring is smarter** — fixed saved API keys occasionally disappearing after switching between providers (secret writes now have concurrency protection, read-back verification, and rollback); the Authentication page now lists **all** saved keys including custom providers; switching to a model without a configured key warns up front; key-related errors are localized with a direct path to fix them. Also improves scroll anchoring for long replies and polishes the quick launcher and global shortcuts.
+>
+> ⚠ **Behavior changes**: ① setting a global shortcut to a combination **taken by another app** now **rolls back to your previous shortcut** (instead of leaving all shortcuts dead); ② API keys configured in **other applications** are no longer auto-migrated (the one-time migration is complete) — configure them separately.
+
+### Added
+
+- **Authentication page lists all provider keys (including custom providers)**: custom provider keys (e.g. Volcengine Ark Coding Plan) were previously saved but invisible on this page, making it impossible to tell whether a key was configured; all keys are now listed and deletable;
+- **Missing-key warning on model switch**: switching to a model whose provider has no API key now warns immediately (with a path to fix it) instead of showing "switched" and failing on send;
+- **Localized missing-key errors**: when a reply fails due to a missing API key, the error is localized with a direct entry to configure the provider (previously an English technical message);
+- **Empty-reply placeholder**: when the model returns an empty reply, the conversation shows a "no content returned" hint with retry guidance instead of a blank area;
+- **Global shortcut rollback**: if a rebound shortcut fails to register (taken by another app), the previous shortcut is restored automatically and flagged in Settings.
+
+### Fixed
+
+- **Keys no longer disappear after switching providers**: fixed saved API keys occasionally vanishing after switching between providers (especially custom ones) — the secret store lacked write locking and read-back verification; writes are now locked, verified by read-back, and rolled back with an explicit error instead of silently failing later;
+- **Deleted keys no longer come back**: deleting a key no longer gets restored by the migration on the next start;
+- **Scroll anchoring for long replies**: when a reply is taller than the viewport, completion now anchors to the top of the reply body (previously misjudged as "already visible" and left in place);
+- **Quick launcher**: a clear toast when clipboard paste fails (previously silent).
+- **Unpin clears hidden state**: unpinning a model that was locally hidden now restores its visibility, instead of leaving an invisible orphan.
+
+### Changed
+
+- The quick launcher's drag hint strip visual height changed from 12px to 8px.
+
+### Removed
+
+- Nothing was removed in this release.
+
+### Security
+
+- Provider secret writes now perform **read-back verification with rollback** (storage hardening against silent key loss); secret **values** never appear in logs or diagnostics (key names and counts only).
+
 ## [1.27.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.27.0) — 2026-10-26
 
 > **中文**：**本地模型更可控、界面更可达**——模型清单可隐藏/恢复不常用模型；置顶支持键盘操作；本地听写可选转写语言；对话字体大小四档可调；被其它应用占用的全局热键会在设置中明确提示。同时修复了一批界面文字颜色不生效的问题与快速启动器的多处交互缺陷。
