@@ -4,6 +4,51 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+更新日志口径：一段 = 一个用户可感知的结果；不写机制与实现细节（注入、回落、渲染、状态枚举等属实现层）；同一件事只出现一次；每节 ≤ 3 条；只写用户会注意到的行为迁移，文档维护与文案微调不单列。
+
+## [1.30.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.30.0) — 2026-10-30
+
+> **中文**：**提示文件链路、快捷入口、保存并开始新会话**——提示文件弹窗现在能一眼看出哪些提示文件在生效、哪些没有；输入框和命令面板都加了「项目提示」入口，不必再进设置；改完提示文件可一键保存并开新会话，改动立即生效。
+>
+> ⚠ **行为变化**：没有活跃会话时（新对话页），提示文件编辑器使用**最近一次会话**的目录（此前用启动时的目录）。
+
+### 新增
+- **提示文件链路**：弹窗内新增只读区块，按读取顺序列出全局与项目各层的提示文件，并标出哪一份在生效；
+- **快捷入口**：输入框目录旁新增「项目提示」图标，命令面板新增「打开项目提示」；设置里的原入口保留；
+- **保存并开始新会话**：保存后直接在当前目录开新会话，改动立即生效（新会话不会带入当前对话记录）。
+
+### 修复
+- **「旧文件的新内容不再被读取」这句提示此前不显示**：同目录同时存在 `.cyhints` 与 `.goosehints` 时，该提示从未出现，现在会正常显示。
+
+### 变更
+- 提示文件帮助文档（三语）已同步更新，补充链路查看、清空提示文件后的回落行为与常见问题。
+
+### 移除
+- 本次发布没有移除既有功能。
+
+### 安全
+- 本次发布没有安全相关变更。
+
+> **English**: **Hint file chain, quick access, and save & start a new session** — the hint dialog now shows at a glance which hint files are in effect and which are not; the input box and the command palette both open the editor, so you no longer have to go through Settings; saving can start a fresh session in one step so your edits apply immediately.
+>
+> ⚠ **Behavior change**: with no active session (the new-chat screen), the hint editor uses your **most recent session's** directory instead of the window's start directory.
+
+### Added
+- **Hint file chain**: a read-only section in the dialog lists global and project hint files in read order and marks which one is in effect;
+- **Quick access**: a "Project hints" icon next to the directory switcher in the input box, plus an "Open project hints" command in the palette; the Settings entry stays;
+- **Save & start a new session**: save and immediately start a new session in the same directory so the change applies at once (the new session does not carry the current conversation).
+
+### Fixed
+- **The "legacy file's new content is no longer read" notice now appears**: when both `.cyhints` and `.goosehints` exist in one directory, that notice was never shown before.
+
+### Changed
+- The trilingual hint-file help is updated with the chain view, the fallback behaviour after clearing `.cyhints`, and the troubleshooting section.
+
+### Removed
+- No existing functionality was removed in this release.
+
+### Security
+- No security-related changes in this release.
 ## [1.29.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.29.0) — 2026-10-29
 
 > **中文**：**火山 Coding Plan 完整支持、提示文件不再重复注入、发送消息自动回底**——内置「火山方舟 Coding Plan」提供商的上下文窗口按真实容量（最高 1M）显示与计算；自定义提供商可声明默认上下文窗口；修复同一目录同时存在 `.cyhints` 与 `.goosehints` 时提示内容被重复注入的问题；发送消息后自动回到最新位置并跟随回复。
