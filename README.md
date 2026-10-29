@@ -50,7 +50,7 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 | 技能、应用、调度、扩展 | 内置能力提供可视化管理；扩展采用 MCP 协议（可自行配置第三方 MCP 服务器），敏感操作会先请求许可 |
 | **Agent 浏览器控制** | 读取页面文本、点击元素、输入并提交表单，**默认关闭**、按站点授权并逐次确认，页面端自动拦截敏感字段输入，输入内容绝不写入日志 |
 | 工作区右侧面板（Workspace Panel） | 文件、媒体、运行结果；以及**内嵌浏览器**（第三方网页在**隔离面板**中打开，独立配置目录、零注入，无法访问应用与你的文件） |
-| 提示词与提示文件 | 查看 / 覆盖 9 个内置提示模板，编辑项目与全局提示文件（`.cyhints`，兼容 `.goosehints`） |
+| 提示词与提示文件 | 查看 / 覆盖 9 个内置提示模板，编辑项目提示文件（`.cyhints`，兼容 `.goosehints`；全局提示只读，弹窗内可见「提示文件链路」） |
 | **通知中心** | 状态栏铃铛会留存所有通知：未读计数、单条清除与全部清除；留存仅在内存中，不写入任何文件 |
 | 上下文与工作区感知 | 顶栏常驻上下文占用与自动压缩状态条；工作区未提交变更徽章（本地只读统计） |
 | 系统集成 | 系统托盘、**关闭时最小化到托盘**、全局快捷键快速启动器、**命令面板**、`goose://` 深链、16 种界面语言 |
@@ -77,7 +77,7 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 ## 校验下载
 
 ```powershell
-# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.29.0_x64-setup.exe）
+# 把 <版本号> 换成实际下载的文件名中的版本号（例如 ChengYoung_1.30.0_x64-setup.exe）
 certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 ```
 
@@ -152,7 +152,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 | Skills / Apps / Scheduler / Extensions | Built-in capabilities are managed visually in-app; extensions use the MCP protocol (third-party MCP servers supported), and sensitive actions require permission first |
 | **Agent browser control** | Read page text, click elements, and type into or submit forms — **off by default**, per-site authorization + per-action confirmation, sensitive field input is automatically intercepted on the page, and input content is never logged |
 | Workspace right panel | Files, media and run results — plus an **embedded browser** (third-party pages open in an **isolated panel** with their own profile and cannot reach the app or your files) |
-| Prompts and hints | Inspect or override the 9 built-in prompt templates, and edit project or global hint files (`.cyhints`, with `.goosehints` supported for compatibility) |
+| Prompts and hints | Inspect or override the 9 built-in prompt templates, and edit the project hint file (`.cyhints`, with `.goosehints` supported; global hints are read-only and visible in the hint file chain) |
 | **Notification center** | A bell in the status bar archives every notification: unread counter, per-item dismiss and clear all; the archive lives in memory only and is never written to any file |
 | Context & workspace awareness | Persistent context-usage and auto-compaction bar in the top bar; a badge for uncommitted workspace changes (read-only, computed locally) |
 | System integration | Tray icon, **minimize to tray on close**, global-shortcut quick launcher, **command palette**, `goose://` deep links, 16 UI languages |
@@ -179,7 +179,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 ### Verify the download
 
 ```powershell
-# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.29.0_x64-setup.exe)
+# Replace <version> with the version in the file name you downloaded (for example, ChengYoung_1.30.0_x64-setup.exe)
 certutil -hashfile ChengYoung_<version>_x64-setup.exe SHA256
 ```
 
