@@ -4,6 +4,52 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
+## [1.29.0] — Unreleased
+
+> **中文**：**火山 Coding Plan 完整支持、提示文件不再重复注入、发送消息自动回底**——内置「火山方舟 Coding Plan」提供商的上下文窗口按真实容量（最高 1M）显示与计算；自定义提供商可声明默认上下文窗口；修复同一目录同时存在 `.cyhints` 与 `.goosehints` 时提示内容被重复注入的问题；发送消息后自动回到最新位置并跟随回复。
+>
+> ⚠ **行为变化**：① 同一目录两份提示文件并存时，此后以 `.cyhints` 为准；旧名文件里的**新增内容不再被本应用读取**（编辑器会提示，并可用「重新导入」拉回）；② 向上滚动阅读时发送消息，视图会自动回到最新位置并跟随回复。
+
+### 新增
+- **内置「火山方舟 Coding Plan」提供商**：一键接入，上下文窗口按真实容量（最高 1M）显示与计算，混合大小写的模型 ID 也能正确命中；压缩提示按真实窗口触发（此前被标为 128k，约 90k 就提前压缩）；
+- **自定义提供商「默认上下文窗口」**：表单新增该字段（留空 = 不声明），配置链完整保存与回显；
+- **提示文件来源可见**：编辑器会显示当前实际读取的文件；旧名文件仍生效（新文件为空）或被取代时会给出说明，被取代时可「重新导入」把旧内容覆盖写入 `.cyhints`。
+
+### 修复
+- **提示文件重复注入**：同一目录同时存在 `.cyhints` 与 `.goosehints` 时，此前两份内容会被重复注入对话；现在以 `.cyhints` 为准（为空（含仅空白）或不可读时回落到 `.goosehints`）。**升级不会创建或修改任何文件**；只有在应用内编辑并保存提示文件时才会写入 `.cyhints`（并带入原 `.goosehints` 的内容，原文件保留、其它客户端不受影响）。若上游客户端仍在更新 `.goosehints`，其新增内容将不再被本应用读取——编辑器会提示并可「重新导入」（覆盖 `.cyhints`）拉回；
+- **发送消息自动回到底部**：向上滚动阅读历史时发送新消息，视图会自动回到最新位置并跟随回复（此前视口停在原位）；长回复完成后的滚动锚定与阅读不被打扰的语义全面收敛。
+
+### 变更
+- 提示文件的读取优先级改为「品牌名优先、旧名回落或影子化」，适用于项目根、全局提示文件与工具访问到的子目录（见顶部行为变化①）。
+
+### 移除
+- 本次发布没有移除既有功能。
+
+### 安全
+- 本次发布没有安全相关变更。
+
+> **English**: **Full Volcengine Coding Plan support, no more duplicate hint injection, and auto-scroll back on send** — the built-in Volcengine Ark Coding Plan provider now shows and computes its context window at the real capacity (up to 1M); custom providers can declare a default context window; same-directory `.cyhints` and `.goosehints` are no longer injected twice; sending a message returns the view to the latest position and follows the reply.
+>
+> ⚠ **Behavior changes**: ① when both hint files exist in one directory, `.cyhints` now takes precedence — **new content added to the legacy file is no longer read** by this app (the editor shows a notice with a "Re-import" action); ② sending while scrolled up returns to the latest position and follows the reply.
+
+### Added
+- **Built-in Volcengine Ark Coding Plan provider**: one-click setup, context window shown and computed at real capacity (up to 1M), mixed-case model IDs match correctly; compaction now triggers at the real window (previously pinned at 128k, compacting around 90k);
+- **Custom provider "default context window"**: new form field (blank = not declared), preserved and re-displayed end to end;
+- **Visible hint-file source**: the editor shows which file is actually read; when the legacy file is still in effect (new file empty) or has been superseded, a notice explains it, with "Re-import" to overwrite `.cyhints` with the legacy content.
+
+### Fixed
+- **Duplicate hint injection**: when both `.cyhints` and `.goosehints` existed in one directory, both were injected; `.cyhints` now takes precedence (falling back to `.goosehints` when it is empty or unreadable). **Upgrading creates and modifies no files**; `.cyhints` is only written when you edit and save hints inside the app (carrying over the legacy content, keeping the original file intact for other clients). If another client keeps updating `.goosehints`, its new content is no longer read — the editor offers "Re-import" (overwriting `.cyhints`);
+- **Auto-scroll back after sending**: sending while scrolled up now returns to the latest position and follows the reply (previously the viewport stayed put); long-reply anchoring and reading-without-interruption are fully converged.
+
+### Changed
+- Hint files are now read with branded-name precedence plus legacy fallback/shadowing, across the project root, global hint file, and tool-touched subdirectories (see behavior change ①).
+
+### Removed
+- No existing functionality was removed in this release.
+
+### Security
+- No security-related changes in this release.
+
 ## [1.28.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.28.0) — 2026-10-28
 
 > **中文**：**提供商密钥更可靠、更透明，回复滚动锚定更聪明**——修复了在多个提供商之间切换后已保存密钥偶发消失的问题（密钥写入现在有写入校验与并发保护）；「身份验证」页现在会列出全部已保存密钥（含自定义提供商）；切换到缺少密钥的模型会提前预警；密钥相关的错误信息全面本地化。同时改进长回复的滚动锚定，并为快速启动器与全局快捷键补齐多处细节。
