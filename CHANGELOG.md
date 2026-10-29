@@ -4,7 +4,7 @@
 
 Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
-## [1.29.0] — Unreleased
+## [1.29.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.29.0) — 2026-10-29
 
 > **中文**：**火山 Coding Plan 完整支持、提示文件不再重复注入、发送消息自动回底**——内置「火山方舟 Coding Plan」提供商的上下文窗口按真实容量（最高 1M）显示与计算；自定义提供商可声明默认上下文窗口；修复同一目录同时存在 `.cyhints` 与 `.goosehints` 时提示内容被重复注入的问题；发送消息后自动回到最新位置并跟随回复。
 >
