@@ -19,6 +19,8 @@ The first launch asks how you want to run conversations. There are two paths, an
 
 **Through a provider** — pick *Connect to a Provider*, choose the vendor you already use, then paste the API key from that vendor's console. The key is stored in your local configuration on this machine.
 
+**Volcengine Coding Plan** — pick the `volcengine-coding-plan` template in the wizard and keep `ark-code-latest` as the model ID: it is an aggregated entry point that Volcengine routes to the current model, so model updates need no renaming on your side. From 1.29.0 on, the built-in Volcengine Ark Coding Plan provider knows each plan model's context window (including newer releases before any catalog catches up), so the context bar shows the real limit. With a custom provider created before the update, a model missing from the local catalog falls back to a conservative label; if the bar under-reports your model, set `GOOSE_CONTEXT_LIMIT` to the real value in the config file (it applies globally to every provider and model, so use it only while a large-context provider is your main one), or add the model with its `context_limit` to the custom provider's `models` list.
+
 To change the model later, use the model selector at the bottom of the chat window, or open **Settings → Models** and choose *Switch models*. Downloads, disk usage and a Hugging Face search box live in **Settings → Local Inference**, which is also where you free up space by removing a model you no longer need.
 
 Local inference is worth it for offline work and private material, but it is bounded by the hardware: a model larger than your free memory will be slow or refuse to load, and long conversations fill the context window sooner than a hosted model would.
