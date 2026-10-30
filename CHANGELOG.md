@@ -6,6 +6,18 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 更新日志口径：一段 = 一个用户可感知的结果；不写机制与实现细节（注入、回落、渲染、状态枚举等属实现层）；同一件事只出现一次；每节 ≤ 3 条；只写用户会注意到的行为迁移，文档维护与文案微调不单列。
 
+## [1.30.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.30.1) — 2026-10-31
+
+> **中文**：**长回复完成后的滚动锚定真正生效**——回复较长、屏幕只容得下结尾时，回复完成会自动回到正文开头供你从头阅读（此前该功能实际从未生效，视口始终停在消息末尾的时间戳处）。
+
+### 修复
+- **长回复完成自动回到正文开头**：此前长回复完成后视口一直停在消息末尾，滚动锚定实际从未生效；现在长回复完成会平滑滚到正文开头，完整可见的短回复仍保持原位不打扰。
+
+> **English**: **Scroll anchoring after long replies now actually works** — when a long reply finishes, the view returns to the top of the reply so you can read it from the start (previously the feature never took effect and the viewport always stayed at the message footer).
+
+### Fixed
+- **Return to the top of long replies on completion**: the viewport used to stay at the message footer after a long reply finished; it now smoothly scrolls to the start of the reply. Short replies that already fit on screen still stay put.
+
 ## [1.30.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.30.0) — 2026-10-30
 
 > **中文**：**提示文件链路、快捷入口、保存并开始新会话**——提示文件弹窗现在能一眼看出哪些提示文件在生效、哪些没有；输入框和命令面板都加了「项目提示」入口，不必再进设置；改完提示文件可一键保存并开新会话，改动立即生效。
