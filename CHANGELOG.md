@@ -6,6 +6,38 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 更新日志口径：一段 = 一个用户可感知的结果；不写机制与实现细节（注入、回落、渲染、状态枚举等属实现层）；同一件事只出现一次；每节 ≤ 3 条；只写用户会注意到的行为迁移，文档维护与文案微调不单列。
 
+## [1.31.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.31.0) — 2026-11-02
+
+> **中文**：**依赖安全更新 + 企业扩展白名单 + 对话修复**——修复 13 项 RustSec 安全通告（zstd 系 4 项 + TLS/加密与 Markdown 渲染依赖 9 项），并移除 jsonwebtoken 及其依赖链；企业部署可限定只允许安装清单内的扩展；修复「继续对话」把上一条模型回复当提问重发、以及分叉或切换语言后助手被启动两次。
+
+### 新增
+- **企业扩展安装白名单**：设置 `GOOSE_ALLOWLIST` 后只允许清单内的命令安装扩展；策略拉取失败时提示「扩展策略不可用」并阻止安装，不再静默放行。
+
+### 安全
+- 升级 zstd 0.14.3 / zstd-safe 8.2.0 / zstd-sys 2.1.2（修复 RUSTSEC-2026-0391/-0398/-0403/-0410，对齐上游 v1.57.0）；
+- 升级 rustls 0.23.46 / rustls-webpki 0.103.16 / webpki-roots 1.0.10 / webpki-root-certs 1.0.10 / ctutils 0.4.6 / pulldown-cmark 0.13.5（修复 RUSTSEC-2026-0346/-0347/-0348/-0349/-0381/-0382/-0383/-0385/-0414；其中 -0414 上游尚未修复，我方先行）；
+- 移除 jsonwebtoken 及其 rsa 依赖链（消除对应通告的可达路径）。
+
+### 修复
+- **「继续对话」不再重发上一条模型回复**：此前会把上一条回答当成用户提问再发一次；
+- **分叉或切换语言后助手不再被启动两次**：此前会重复触发一次自动启动；
+- **本地小模型不再偶发输出超长命令**：此前 `tree` 之类命令可能吐出数万行、撑爆上下文并触发压缩。
+
+> **English**: **Dependency security updates, an enterprise extension allowlist, and chat fixes** — 13 RustSec advisories fixed (4 in the zstd family and 9 in TLS/crypto/markdown-rendering dependencies), jsonwebtoken and its rsa chain removed; enterprise deployments can restrict extension installs to an allowlist; "continue" no longer re-sends the previous model reply, and the assistant no longer starts twice after a fork or a language switch.
+
+### Added
+- **Enterprise extension allowlist**: with `GOOSE_ALLOWLIST` set, only listed commands may install extensions; if the policy cannot be fetched, installation is blocked with an "extension policy unavailable" message instead of being silently allowed.
+
+### Security
+- zstd 0.14.3 / zstd-safe 8.2.0 / zstd-sys 2.1.2 (RUSTSEC-2026-0391/-0398/-0403/-0410, aligned with upstream v1.57.0);
+- rustls 0.23.46 / rustls-webpki 0.103.16 / webpki-roots 1.0.10 / webpki-root-certs 1.0.10 / ctutils 0.4.6 / pulldown-cmark 0.13.5 (RUSTSEC-2026-0346/-0347/-0348/-0349/-0381/-0382/-0383/-0385/-0414; -0414 is fixed here before upstream);
+- jsonwebtoken and its rsa dependency chain removed (the corresponding advisory is no longer reachable).
+
+### Fixed
+- **"Continue" no longer re-sends the previous model reply** — it used to send the last answer back as if it were a new question;
+- **The assistant no longer starts twice after a fork or a language switch**;
+- **Small local models no longer emit oversized commands** — output like `tree` could previously produce tens of thousands of lines, blowing up the context and forcing a compaction.
+
 ## [1.30.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.30.1) — 2026-10-31
 
 > **中文**：**长回复完成后的滚动锚定真正生效**——回复较长、屏幕只容得下结尾时，回复完成会自动回到正文开头供你从头阅读（此前该功能实际从未生效，视口始终停在消息末尾的时间戳处）。
