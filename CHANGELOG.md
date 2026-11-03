@@ -1,10 +1,30 @@
 # Changelog
 
-本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
+本项目的版本发布记录（面向用户）。每个发布版本从最新往下；「新增 / 变更 / 修复 / 安全」为面向用户的要点。破坏性变更（Breaking Changes）如有，会在对应版本顶部标注。
 
-Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
+Release notes for this project (user-facing). Versions are listed from newest to oldest; "Added / Changed / Fixed / Security" are the user-facing highlights. Breaking changes, if any, are noted at the top of the affected version.
 
 更新日志口径：一段 = 一个用户可感知的结果；不写机制与实现细节（注入、回落、渲染、状态枚举等属实现层）；同一件事只出现一次；每节 ≤ 3 条；只写用户会注意到的行为迁移，文档维护与文案微调不单列。
+
+## [1.32.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.32.0) — 2026-11-03
+
+> **中文**：**界面语言切换即时生效 + 空回复重试与提醒**——切换界面语言不再需要重启（16 种语言、含跟随系统）；模型偶发空回复时消息内一键重试、通知中心留档提醒。
+
+### 新增
+- **空回复一键重试与提醒**：模型偶发返回空白内容时，消息中出现占位提示与重试按钮，一键重发原问题；通知中心同步留档提醒。
+
+### 变更
+- **切换界面语言立即生效**：不再需要重启应用，偏好自动保存（16 种语言，含跟随系统）。
+- **截屏全局热键默认改为 Ctrl+Alt+X**：原默认 Ctrl+Alt+A 与微信/QQ 等常见截图工具冲突，导致截屏热键时好时坏；已自定义过键位的不受影响。
+
+> **English**: **Instant UI language switching + empty-reply retry & reminder** — switching the interface language no longer requires a restart (16 languages, including "follow system"); when the model occasionally returns an empty reply, an in-message retry button resends the original prompt and the notification center keeps a reminder.
+
+### Added
+- **Empty-reply retry & reminder**: when the model occasionally returns an empty reply, an in-message placeholder with a Retry button resends the original prompt, and the notification center keeps an archived reminder.
+
+### Changed
+- **UI language switches take effect immediately**: no restart needed, and the preference is saved automatically (16 languages, including "follow system").
+- **Screen-capture global hotkey default changed to Ctrl+Alt+X**: the previous default (Ctrl+Alt+A) clashed with WeChat/QQ-style screenshot hotkeys, making the capture hotkey unreliable; custom key bindings are unaffected.
 
 ## [1.31.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.31.0) — 2026-11-02
 
