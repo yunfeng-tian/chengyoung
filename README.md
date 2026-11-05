@@ -5,7 +5,7 @@
 **本地优先的桌面 AI 智能体——开箱即用、数据不出本机**
 
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0"></a>
-<a href="https://github.com/yunfeng-tian/chengyoung/releases/latest"><img src="https://img.shields.io/github/v/release/yunfeng-tian/chengyoung?label=latest%20release" alt="Latest release"></a>
+<a href="https://github.com/getchengyoung/chengyoung/releases/latest"><img src="https://img.shields.io/github/v/release/getchengyoung/chengyoung?label=latest%20release" alt="Latest release"></a>
 <img src="https://img.shields.io/badge/platform-Windows%20x64-blue" alt="Platform: Windows x64">
 
 </div>
@@ -29,7 +29,7 @@ ChengYoung 是一款运行在本机的通用桌面 AI 智能体应用，可用�
 
 ## 下载与安装（Windows 10 / 11，x64）
 
-1. 打开 [最新版本](https://github.com/yunfeng-tian/chengyoung/releases/latest)，下载 `ChengYoung_<版本号>_x64-setup.exe`
+1. 打开 [最新版本](https://github.com/getchengyoung/chengyoung/releases/latest)，下载 `ChengYoung_<版本号>_x64-setup.exe`
 2. 双击安装（按当前用户安装，**不需要管理员权限**）
 3. 首次启动后，在「设置 → 模型」里搜索并下载一个本地模型；也可以先配置云端模型提供商再开始使用
 
@@ -91,8 +91,8 @@ certutil -hashfile ChengYoung_<版本号>_x64-setup.exe SHA256
 
 ## 反馈
 
-- 问题与建议：本仓库的 [Issues](https://github.com/yunfeng-tian/chengyoung/issues)（报障请用缺陷报告表单）
-- 使用交流与功能建议：[Discussions](https://github.com/yunfeng-tian/chengyoung/discussions)
+- 问题与建议：本仓库的 [Issues](https://github.com/getchengyoung/chengyoung/issues)（报障请用缺陷报告表单）
+- 使用交流与功能建议：[Discussions](https://github.com/getchengyoung/chengyoung/discussions)
 - 网站：https://chengyoung.com
 - 邮件支持：**support@chengyoung.com**（主题加 [ChengYoung] 前缀便于分流）
 - 应用内「设置 → App → 帮助与反馈」可一键**复制系统信息**（不含会话内容；粘贴至 Issue 或邮件中，以便更快定位问题）
@@ -130,7 +130,7 @@ ChengYoung is a general-purpose **desktop** AI agent that runs on your own compu
 
 ### Download and install (Windows 10 / 11, x64)
 
-1. Open the [latest release](https://github.com/yunfeng-tian/chengyoung/releases/latest) and download `ChengYoung_<version>_x64-setup.exe`
+1. Open the [latest release](https://github.com/getchengyoung/chengyoung/releases/latest) and download `ChengYoung_<version>_x64-setup.exe`
 2. Run the installer (per-user install, no administrator rights needed)
 3. On first launch, download a local model under *Settings → Models*, or configure a cloud provider before you start
 
@@ -193,7 +193,7 @@ Compare the resulting hash with `SHA256SUMS.txt` from the same release. In-app u
 
 ### Feedback
 
-- Issues and suggestions in this repository: [yunfeng-tian/chengyoung/issues](https://github.com/yunfeng-tian/chengyoung/issues)
+- Issues and suggestions in this repository: [getchengyoung/chengyoung/issues](https://github.com/getchengyoung/chengyoung/issues)
 - Website: https://chengyoung.com
 - Email support: **support@chengyoung.com**
 - In the app, *Settings → About ChengYoung* lets you copy a diagnostic report with one click (paste it into your issue or email to help diagnose the problem faster).
