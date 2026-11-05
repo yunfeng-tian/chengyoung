@@ -6,7 +6,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 更新日志口径：一段 = 一个用户可感知的结果；不写机制与实现细节（注入、回落、渲染、状态枚举等属实现层）；同一件事只出现一次；每节 ≤ 3 条；只写用户会注意到的行为迁移，文档维护与文案微调不单列。
 
-## [1.32.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.32.0) — 2026-11-03
+## [1.32.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.32.0) — 2026-11-03
 
 > **中文**：**界面语言切换即时生效 + 空回复重试与提醒**——切换界面语言不再需要重启（16 种语言、含跟随系统）；模型偶发空回复时消息内一键重试、通知中心留档提醒。
 
@@ -26,7 +26,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - **UI language switches take effect immediately**: no restart needed, and the preference is saved automatically (16 languages, including "follow system").
 - **Screen-capture global hotkey default changed to Ctrl+Alt+X**: the previous default (Ctrl+Alt+A) clashed with WeChat/QQ-style screenshot hotkeys, making the capture hotkey unreliable; custom key bindings are unaffected.
 
-## [1.31.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.31.0) — 2026-11-02
+## [1.31.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.31.0) — 2026-11-02
 
 > **中文**：**依赖安全更新 + 企业扩展白名单 + 对话修复**——修复 13 项 RustSec 安全通告（zstd 系 4 项 + TLS/加密与 Markdown 渲染依赖 9 项），并移除 jsonwebtoken 及其依赖链；企业部署可限定只允许安装清单内的扩展；修复「继续对话」把上一条模型回复当提问重发、以及分叉或切换语言后助手被启动两次。
 
@@ -58,7 +58,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - **The assistant no longer starts twice after a fork or a language switch**;
 - **Small local models no longer emit oversized commands** — output like `tree` could previously produce tens of thousands of lines, blowing up the context and forcing a compaction.
 
-## [1.30.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.30.1) — 2026-10-31
+## [1.30.1](https://github.com/getchengyoung/chengyoung/releases/tag/v1.30.1) — 2026-10-31
 
 > **中文**：**长回复完成后的滚动锚定真正生效**——回复较长、屏幕只容得下结尾时，回复完成会自动回到正文开头供你从头阅读（此前该功能实际从未生效，视口始终停在消息末尾的时间戳处）。
 
@@ -70,7 +70,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### Fixed
 - **Return to the top of long replies on completion**: the viewport used to stay at the message footer after a long reply finished; it now smoothly scrolls to the start of the reply. Short replies that already fit on screen still stay put.
 
-## [1.30.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.30.0) — 2026-10-30
+## [1.30.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.30.0) — 2026-10-30
 
 > **中文**：**提示文件链路、快捷入口、保存并开始新会话**——提示文件弹窗现在能一眼看出哪些提示文件在生效、哪些没有；输入框和命令面板都加了「项目提示」入口，不必再进设置；改完提示文件可一键保存并开新会话，改动立即生效。
 >
@@ -113,7 +113,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 ### Security
 - No security-related changes in this release.
-## [1.29.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.29.0) — 2026-10-29
+## [1.29.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.29.0) — 2026-10-29
 
 > **中文**：**火山 Coding Plan 完整支持、提示文件不再重复注入、发送消息自动回底**——内置「火山方舟 Coding Plan」提供商的上下文窗口按真实容量（最高 1M）显示与计算；自定义提供商可声明默认上下文窗口；修复同一目录同时存在 `.cyhints` 与 `.goosehints` 时提示内容被重复注入的问题；发送消息后自动回到最新位置并跟随回复。
 >
@@ -159,7 +159,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### Security
 - No security-related changes in this release.
 
-## [1.28.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.28.0) — 2026-10-28
+## [1.28.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.28.0) — 2026-10-28
 
 > **中文**：**提供商密钥更可靠、更透明，回复滚动锚定更聪明**——修复了在多个提供商之间切换后已保存密钥偶发消失的问题（密钥写入现在有写入校验与并发保护）；「身份验证」页现在会列出全部已保存密钥（含自定义提供商）；切换到缺少密钥的模型会提前预警；密钥相关的错误信息全面本地化。同时改进长回复的滚动锚定，并为快速启动器与全局快捷键补齐多处细节。
 >
@@ -225,7 +225,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - Provider secret writes now perform **read-back verification with rollback** (storage hardening against silent key loss); secret **values** never appear in logs or diagnostics (key names and counts only).
 
-## [1.27.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.27.0) — 2026-10-26
+## [1.27.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.27.0) — 2026-10-26
 
 > **中文**：**本地模型更可控、界面更可达**——模型清单可隐藏/恢复不常用模型；置顶支持键盘操作；本地听写可选转写语言；对话字体大小四档可调；被其它应用占用的全局热键会在设置中明确提示。同时修复了一批界面文字颜色不生效的问题与快速启动器的多处交互缺陷。
 >
@@ -291,7 +291,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - None (no security fixes in this release).
 
-## [1.26.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.26.0) — 2026-10-25
+## [1.26.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.26.0) — 2026-10-25
 
 > **中文**：**本地记录更可靠、会话恢复更稳**——提供商密钥缺失时，会话历史改为「只读查看 + 修复引导」，不再整页报错；错误提示会明确指出缺少哪个密钥。自动压缩阈值输入更顺手（自由输入、保存时校验），并修复了阈值上限、编辑入口与范围校验三处不一致；用量页金额显示币种符号（$）。
 >
@@ -335,7 +335,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - None (no security fixes in this release).
 
-## [1.25.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.25.0) — 2026-10-24
+## [1.25.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.25.0) — 2026-10-24
 
 > **模型选择更聪明：置顶、目录合并与自动刷新**：模型下拉新增 ⭐ 置顶——手动输入的模型 ID 自动置顶并优先展示，目录刷新也不再清除它们；模型清单改为「在线目录 + 本地保留」合并语义；清单过期时自动后台刷新，选择器不再被刷新卡住。另有一批下拉体验修复与火山引擎 Coding Plan 配置引导。
 
@@ -397,7 +397,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - The no-collection, no-telemetry promise is unchanged; online catalog refreshes only talk to the provider APIs you configured, and pin data stays in local settings (see in-app "Privacy details").
 
-## [1.24.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.24.0) — 2026-10-23
+## [1.24.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.24.0) — 2026-10-23
 
 > **截屏体验全面升级 + 本地推理性能修复**：截屏选区新增变暗遮罩与实时尺寸标注、支持方向键微调与双击确认；多屏场景下覆盖窗跟随触发来源、截屏进行中再按热键即可在当前屏幕重新开始。本地推理修复了模型被错误分配到 CPU 或集成显卡的问题——独立显卡全量接管后，推理速度最高提升数倍，偶发空回复的问题也已根治；默认推荐模型（Gemma-4-E4B）的工具调用可靠性已通过全量场景验证。
 
@@ -459,7 +459,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - Our commitment not to collect or upload any usage data is unchanged; screenshot content from the capture feature still exists only in local memory — never written to disk, never sent over the network (see in-app "Privacy details").
 
-## [1.23.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.23.0) — 2026-10-21
+## [1.23.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.23.0) — 2026-10-21
 
 > **新增「截屏提问」**：在任何应用里按 Ctrl+Alt+A，框选屏幕任意区域，截图直接进入输入框——配合「提取文字 / 翻译 / 解题」三个一键指令，把看到的内容立刻交给 AI 处理。截图全程只在本机内存中处理，不保存文件、不上传。
 
@@ -523,7 +523,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - The commitment of no telemetry and no data collection is unchanged; Screenshot Ask content exists temporarily in memory only — never written to disk, never sent over the network (see in-app "Privacy details").
 
-## [1.22.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.22.0) — 2026-10-20
+## [1.22.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.22.0) — 2026-10-20
 
 > **新增「用量与费用」页**：所有对话的 Token 与费用统计在一处看全——本月用了多少、哪个模型花得最多、每天的趋势如何。入口在侧栏「更多」分组，也可以直接点击对话底部的费用条跳转（自动定位到该对话）。所有统计只保存在本机。
 
@@ -591,7 +591,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - The promise of no collection and no upload of any usage data is unchanged; everything on the usage & cost page is stored on your device (see in-app "Privacy details").
 
-## [1.21.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.21.0) — 2026-10-18
+## [1.21.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.21.0) — 2026-10-18
 
 > **行为变化**：当你关闭 ChengYoung 时，此前已在后台下载完成的更新会在退出过程中自动安装（静默、不重启应用）——下次启动即是新版本；不希望自动安装的，请在更新下载完成前不要关闭应用，或在设置中关闭自动下载。另外，长上下文模型的自动压缩触发点现在会明确显示在上下文条上（例如「上限 225k」），并且可以直接点击修改该上限。
 
@@ -659,7 +659,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - **Build chain hardened**: the model-process artifact must pass a byte-level forbidden-string scan at packaging (verifying no reporting domains); an upstream decision-provider experiment would be blocked by the build gate.
 - The promise of no collection and no upload of any usage data is unchanged (see in-app "Privacy details").
 
-## [1.20.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.20.0) — 2026-10-17
+## [1.20.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.20.0) — 2026-10-17
 
 > **行为变化**：听写设置不再提供「使用对话模型直接转写音频」的选项（该方式需要支持音频输入的模型，普通文本模型会转写失败）——已配置该方式的会话会自动切回「禁用」，请改用本地模型或云端转写服务。另外，输入框工具区已重新布局：添加文件 / 图片的入口移至左下角「+」菜单，麦克风按钮移至发送按钮旁。
 
@@ -727,7 +727,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - No known security advisories are included in this release; routine updates and hardening apply as usual.
 
-## [1.19.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.19.0) — 2026-10-15
+## [1.19.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.19.0) — 2026-10-15
 
 > **行为变化（Breaking）**：本次同步上游后，执行引擎全面切换至状态机（State Machine）——旧执行循环（agent loop）已移除，状态机成为唯一执行路径；扩展改为**首次使用时才启动**（新对话不再等待全部扩展就绪，启动显著提速）。绝大多数对话行为不变；如遇边缘行为差异请反馈。
 
@@ -805,7 +805,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 - No known security advisories in this sync; dependency and subprocess hardening landed with the regular update.
 
-## [1.18.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.18.0) — 2026-10-13
+## [1.18.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.18.0) — 2026-10-13
 
 ### 新增
 
@@ -831,7 +831,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - The "install from local directory" source placeholder in the plugin dialog is now properly translated in Simplified and Traditional Chinese (previously shown in English).
 - Session card layout: hover actions merged into the info row — cards are more compact with no reserved empty row.
 
-## [1.17.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.17.0) — 2026-10-12
+## [1.17.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.17.0) — 2026-10-12
 
 ### 新增
 - **内置帮助中心（用户指南）**：对话页右上角的 ChengYoung Logo 现在打开全屏「用户指南」——16 篇离线文档随包分发（快速开始、安装与更新、本地模型、工作流、扩展、技能、调度、会话管理、上下文控制、插件、代码库分析、权限与安全、隐私、常见问题、使用技巧、限流与配额），目录树导航；可收起为悬浮图标随时回到对话，再次点击恢复到原阅读位置；非中英文界面自动切换至中文或英文文档并给出提示
@@ -847,7 +847,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### Fixed
 - **Stricter extension (MCP) config validation**: when adding an extension, if a URL is entered in the command field of a stdio extension, or the endpoint of a Streamable HTTP extension is not a valid http(s) URL, the app flags it inline and blocks saving (previously it saved first and only failed when connecting)
 
-## [1.16.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.16.0) — 2026-10-10
+## [1.16.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.16.0) — 2026-10-10
 
 ### 新增
 - **从本地目录安装插件**：除 git 仓库外，现在可以直接选择电脑上的插件文件夹进行安装（适合企业内网与离线分发场景）。本地目录安装同样走「下载 → 启用前审阅」两步确认；「自动更新」仍仅对 git 来源开放（本地目录没有可拉取的远端）
@@ -861,7 +861,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### Fixed
 - **More complete plugin disclosure**: a plugin's commands are now listed in the install review dialog and the plugin details (previously only skills, MCP servers, and hooks were shown); the uninstall prompt is updated accordingly
 
-## [1.15.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.15.0) — 2026-10-10
+## [1.15.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.15.0) — 2026-10-10
 
 ### 新增
 - **插件系统（首批）**：新增「设置 → 插件」，可以从 git 仓库安装插件，为 ChengYoung 扩展技能、命令与生命周期钩子。安装分两步：先下载，**启用前先审阅**——清单会列出插件提供的组件，钩子明确标注「会在本机执行命令」；安装后默认停用、由你逐个启用；「自动更新」默认关闭、需逐插件手动开启；卸载会同时清理配置与文件、不留残留。隐私说明同步更新：插件只在你安装或更新时从其来源下载，此外无任何联网行为
@@ -881,7 +881,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### Fixed
 - **Removed the defunct "Share to Nostr" entry**: the capability was retired and the old entry never succeeded; importing sessions from Nostr links is unaffected
 
-## [1.14.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.14.0) — 2026-10-06
+## [1.14.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.14.0) — 2026-10-06
 
 ### 新增
 - **本地 OpenAI 兼容网关**：本机上的 IDE、脚本与第三方工具可以直接连接你已下载的本地模型（也可以把请求用**你自己的 API Key** 转发到你配置的云端提供商）。**默认不监听**——在「设置 → 网关」里配置别名并开启后才会启动；仅监听本机 `127.0.0.1`，所有请求都需要令牌（令牌明文只保存在系统凭据库），并且面板里常显数据去向说明
@@ -925,7 +925,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - The gateway binds to the loopback address only, validates the `Host` header (anti DNS-rebinding) and returns no CORS headers; every endpoint except the health check requires the bearer token
 - Audit logs keep **metadata only** (model, token counts, latency) — conversation content is never written — and are stored encrypted on this computer, with a one-click clear button
 
-## [1.13.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.13.0) — 2026-10-05
+## [1.13.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.13.0) — 2026-10-05
 
 ### 新增
 - **自动检查与下载更新**：应用默认每 4 小时自动检查更新（首次检查在启动 5 分钟后），发现新版本会自动后台下载并在就绪时通知——安装仍需确认；两个开关（自动检查 / 自动下载）均可在设置 → 关于 ChengYoung 中关闭
@@ -944,7 +944,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - **Fixed the tray icon becoming unresponsive after "Stop engine"**: the confirmation dialog previously blocked the main thread, freezing all tray interactions; the dialog is now non-blocking and the stop action runs normally after confirmation, with no restart required
 
 
-## [1.12.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.12.0) — 2026-10-05
+## [1.12.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.12.0) — 2026-10-05
 
 ### 新增
 - **引擎生命周期管理**：本地推理引擎意外退出后，应用会自动按退避策略重启（立即 / 2 秒 / 8 秒，最多 3 次）；长期稳定运行（超过 60 秒）后的崩溃不会继承历史失败。多次重启仍失败时才显示错误，并提供诊断与日志入口
@@ -957,7 +957,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - **Error page distinguishes engine states**: when the engine was stopped from the tray, the page offers "Start engine" instead of "Restart"; after two consecutive failed restarts the retry button is replaced by an "Open logs folder" diagnostics exit
 
 
-## [1.11.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.1) — 2026-10-05
+## [1.11.1](https://github.com/getchengyoung/chengyoung/releases/tag/v1.11.1) — 2026-10-05
 
 ### 修复
 - **错误页的「重试」现在真正可用**：此前本地推理引擎被停止或意外退出后，错误页的重试只会反复检查一个已不存在的服务、永远失败；现在重试会让应用自动重启引擎并重新连接（约 3-5 秒）。重启本身失败时提供「打开日志目录」，便于附在反馈里排查
@@ -967,7 +967,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - **The "Retry" button on the error page now actually works**: after the local inference engine was stopped or crashed, retrying only re-checked a dead endpoint and always failed; retrying now restarts the engine automatically and reconnects (about 3-5 seconds). If the restart itself fails, an "Open logs folder" action is offered for troubleshooting feedback
 - The OS line in system info now includes the platform name (`Windows 10.0.26300`) instead of a bare version number
 
-## [1.11.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.0) — 2026-10-05
+## [1.11.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.11.0) — 2026-10-05
 
 ### 新增
 - **系统信息升级为完整构建与环境档案**（设置 → 应用 → 关于与帮助 → 「复制系统信息」）：在版本、平台、语言之外，新增 OS 版本号、WebView2 运行时版本、构建提交与构建日期——信息密度对照 VS Code「帮助 → 关于」，便于支持排障
@@ -976,7 +976,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### 修复
 - **修正安装包内本地推理引擎的版本号**：1.10.0 安装包中应用版本显示正确，但内部推理引擎二进制停留在 1.9.1（版本号提升未触发其重新编译）。功能本身没有差异，但诊断报告会显示旧版本。发布链路同步加固：发布构建现在会自动重编引擎并校验其内嵌版本号，杜绝同类问题再次发生
 
-## [1.10.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.10.0) — 2026-10-04
+## [1.10.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.10.0) — 2026-10-04
 
 > 本条目同时涵盖中间的内部修订版本（其内容已全部包含在本版安装包中）。
 
@@ -991,7 +991,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - 内部推理进程改用专用名称，避免与官方 Goose 同装时产生进程混淆
 - 发布流程加固：内置 16 语言文案质量门禁（防止个别语言回退英文）与版本 tag 幂等
 
-## [1.9.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.9.0) — 2026-10-03
+## [1.9.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.9.0) — 2026-10-03
 
 ### 新增
 - **右栏「工作文件」重设计**：会话产生的文件变更置顶展示，目录浏览增强；视图标签改为图标 + 悬停提示
@@ -1006,7 +1006,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### 安全
 - MCP streamable HTTP 传输的 SSRF 防护修复（上游 #11501）
 
-## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
+## [1.8.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.8.0) — 2026-10-02
 
 ### 新增
 - **关闭时最小化到托盘**：关闭窗口不再退出，托盘菜单支持打开 / 设置 / 检查更新 / 退出
@@ -1017,7 +1017,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - 启动首帧闪烁（白闪 / 灰闪）与主题切换时的标题栏残留修复
 - 主窗口顶部边界与标题栏细节修复
 
-## [1.7.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.7.0) — 2026-10-01
+## [1.7.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.7.0) — 2026-10-01
 
 ### 新增
 - **内嵌浏览器面板化**：第三方网页在主窗口内的隔离面板中打开，随主窗口联动收缩；独立配置目录 / 零注入 / 无法获取任何应用权限
@@ -1029,7 +1029,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - 本地推理在「核显 + 独显」混合架构设备上的 Vulkan 稳定性问题
 - 配置网络代理时本机服务的连接异常
 
-## [1.4.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-27 – 2026-09-29
+## [1.4.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-27 – 2026-09-29
 
 ### 新增
 - **Agent 浏览器控制**：读取页面文本 / 点击元素 / 后退前进刷新（**默认关闭**、按站点授权）
@@ -1040,7 +1040,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - 快捷键（菜单 role 键）、CSP、信任分层等安全加固
 - 页面文本绝不写入任何日志
 
-## [1.3.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-27 – 2026-09-28
+## [1.3.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-27 – 2026-09-28
 
 ### 新增
 - **内嵌浏览器**：右栏控制面 + 独立窗口（地址栏 / 打开 / 后退前进 / 刷新 / 用系统浏览器打开）
@@ -1049,7 +1049,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### 安全
 - 信任分层、零注入机制与独立 Profile 隔离（安全架构前置）
 
-## [1.2.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-26 – 2026-09-27
+## [1.2.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-26 – 2026-09-27
 
 ### 新增
 - **会话产物三视图**：结果（MCP Apps）/ 文档（md / diff / html 预览）/ 媒体（图片预览）
@@ -1058,7 +1058,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 - 特定场景下的事件响应修复、CSP 修正
 - 构建流程安全加固与稳定性提升
 
-## [1.1.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-24 – 2026-09-26
+## [1.1.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-24 – 2026-09-26
 
 ### 新增
 - 自绘菜单栏、辅助侧边栏（右侧工作区）、命令面板
@@ -1068,7 +1068,7 @@ Release notes for this project (user-facing). Versions are listed from newest to
 ### 修复
 - 更新链路（安装前停推理进程、下载进度、失败重试、安装不再弹框）
 
-## [1.0.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-23
+## [1.0.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-23
 
 ### 🎉 首次发布
 - **ChengYoung**（Tauri 版）：品牌标识、16 种界面语言
@@ -1085,13 +1085,13 @@ Release notes for this project (user-facing). Versions are listed from newest to
 
 Release history for users, newest first. Categories: New / Improvements & fixes / Security. Breaking changes (if any) are flagged at the top of the affected version.
 
-## [1.11.1](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.1) — 2026-10-05
+## [1.11.1](https://github.com/getchengyoung/chengyoung/releases/tag/v1.11.1) — 2026-10-05
 
 ### Fixed
 - **The "Retry" button on the error page now actually works**: after the local inference engine was stopped or crashed, retrying only re-checked a dead endpoint and always failed; retrying now restarts the engine automatically and reconnects (about 3-5 seconds). If the restart itself fails, an "Open logs folder" action is offered for troubleshooting feedback
 - The OS line in system info now includes the platform name (`Windows 10.0.26300`) instead of a bare version number
 
-## [1.11.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.11.0) — 2026-10-05
+## [1.11.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.11.0) — 2026-10-05
 
 ### New
 - **System info upgraded to a full build & environment report** (Settings → App → About & help → Copy system info): in addition to version, platform and locale, it now includes the OS version, the WebView2 Runtime version, and the build commit & date — on par with VS Code's Help → About for support troubleshooting
@@ -1100,7 +1100,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 ### Fixed
 - **Corrected the local inference engine version inside the installer**: in 1.10.0 the app version was correct, but the engine binary was still 1.9.1 (bumping the version did not trigger its recompilation). There was no functional difference, but the diagnostic report showed the old version. The release pipeline was hardened accordingly: release builds now rebuild the engine automatically and assert its embedded version, so this class of issue cannot recur
 
-## [1.10.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.10.0) — 2026-10-04
+## [1.10.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.10.0) — 2026-10-04
 
 > This entry also covers the intermediate internal revisions (all of their changes are included in this release's installer).
 
@@ -1115,7 +1115,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 - The internal inference process now uses a dedicated name, avoiding process confusion when the official Goose is installed alongside
 - Release pipeline hardening: a built-in 16-locale copy-quality gate and version-tag idempotency
 
-## [1.9.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.9.0) — 2026-10-03
+## [1.9.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.9.0) — 2026-10-03
 
 ### New
 - **Redesigned "Workspace files" panel**: file changes produced by sessions are pinned at the top, with enhanced directory browsing; panel view tabs are now icons with tooltips
@@ -1130,7 +1130,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 ### Security
 - SSRF protection fix in the MCP streamable-HTTP transport (upstream #11501)
 
-## [1.8.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.8.0) — 2026-10-02
+## [1.8.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.8.0) — 2026-10-02
 
 ### New
 - **Minimize to tray on close**: closing the window keeps the app in the tray, with a tray menu (open / settings / check for updates / exit)
@@ -1141,7 +1141,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 - Fixed first-frame flicker (white / gray flash) and title-bar leftovers on theme switch
 - Main window top boundary and title-bar polish
 
-## [1.7.0](https://github.com/yunfeng-tian/chengyoung/releases/tag/v1.7.0) — 2026-10-01
+## [1.7.0](https://github.com/getchengyoung/chengyoung/releases/tag/v1.7.0) — 2026-10-01
 
 ### New
 - **Embedded browser as a panel**: third-party pages open in an isolated panel inside the main window and move / minimize with it; separate profile / zero injection / no access to app capabilities
@@ -1153,7 +1153,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 - Local inference stability on hybrid iGPU/dGPU setups (Vulkan)
 - Connectivity to local services when a network proxy is configured
 
-## [1.4.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-27 – 2026-09-29
+## [1.4.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-27 – 2026-09-29
 
 ### New
 - **Agent browser control**: read page text / click elements / go back and forward / reload (off by default, per-origin authorization)
@@ -1164,7 +1164,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 - Keyboard shortcuts, CSP, trust layering and other security hardening
 - Page text is never written to any logs
 
-## [1.3.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-27 – 2026-09-28
+## [1.3.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-27 – 2026-09-28
 
 ### New
 - **Embedded browser**: control surface in the right panel + a separate window (address bar / open / back-forward / reload / open in system browser)
@@ -1173,7 +1173,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 ### Security
 - Trust layering, zero-injection and isolated profile (security architecture groundwork)
 
-## [1.2.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-26 – 2026-09-27
+## [1.2.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-26 – 2026-09-27
 
 ### New
 - **Session artifact views**: results (MCP Apps) / documents (md, diff, html preview) / media (image preview)
@@ -1183,7 +1183,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 - Build pipeline security hardening and stability improvements
 
 
-## [1.1.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-24 – 2026-09-26
+## [1.1.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-24 – 2026-09-26
 
 ### New
 - Custom menu bar, auxiliary sidebar (right workspace), command palette
@@ -1193,7 +1193,7 @@ Release history for users, newest first. Categories: New / Improvements & fixes 
 ### Fixes
 - Update pipeline (stop inference process before install, download progress, retry on failure, no more install dialogs)
 
-## [1.0.x Series](https://github.com/yunfeng-tian/chengyoung/releases) — 2026-09-23
+## [1.0.x Series](https://github.com/getchengyoung/chengyoung/releases) — 2026-09-23
 
 ### 🎉 Initial release
 - **ChengYoung** (Tauri build): brand identity, 16 UI languages
